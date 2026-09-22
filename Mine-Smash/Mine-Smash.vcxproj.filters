@@ -19,10 +19,42 @@
     <Filter Include="Archivos de origen\Objects">
       <UniqueIdentifier>{9d407e6e-0dcd-44d6-9c37-cb7164398e17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Objects">
+      <UniqueIdentifier>{6d9c5a4d-65d9-4fd9-8d4f-5d5cb8df44e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Utils">
+      <UniqueIdentifier>{252d7c98-9d34-4852-a017-4042a313c4b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Screens">
+      <UniqueIdentifier>{44589509-5848-4ba3-86dc-b69395b0e7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Utils">
+      <UniqueIdentifier>{023f35e2-91dd-4352-a9f2-3220e27c19ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Vector2.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Button.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Text.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Color.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Rectangle.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Sprite.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

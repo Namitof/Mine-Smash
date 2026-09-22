@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Mine-Smash/Mine-Smash.vcxproj" />
+  <Project Path="Mine-Smash/Mine-Smash.vcxproj" Id="c493e025-3931-43e8-8269-d26587d84ecf" />
 </Solution>
