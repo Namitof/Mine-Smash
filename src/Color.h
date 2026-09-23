@@ -6,3 +6,5 @@ struct Color
 	double green;
 	double blue;
 };
+
+const Color BLACK = { 0,0,0 };
