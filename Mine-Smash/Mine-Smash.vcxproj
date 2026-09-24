@@ -134,7 +134,12 @@
       <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
 copy "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
 copy "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"</Command>
+copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
+
+cd "$(OutDir)"
+mkdir res
+cd "$(SolutionDir)"
+xcopy "$(SolutionDir)res" "$(OutDir)res" /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,7 +167,12 @@ copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"</Command>
       <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
 copy "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
 copy "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"</Command>
+copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
+
+cd "$(OutDir)"
+mkdir res
+cd "$(SolutionDir)"
+xcopy "$(SolutionDir)res" "$(OutDir)res" /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
