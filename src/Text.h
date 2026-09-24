@@ -12,3 +12,9 @@ struct Text
 	Vector2 position;
 	Color tint;
 };
+
+void TextInit(Text& currentText, int font, double fontSize, std::string text, Vector2 position, Color tint);
+
+void SetTextPos(Text& currentText, double textPosX, double textPosY);
+
+void DrawText(Text& currentText, int textAlign);
