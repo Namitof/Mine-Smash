@@ -4,11 +4,13 @@ Suarez Nahuel
 Mine-Smash
 */
 
-#include "sl.h"
+#include "ScreenManager.h"
 
 int main()
 {
-	const int width = 400;
+	Run();
+
+	/*const int width = 400;
 	const int height = 400;
 
 	slWindow(width, height, "Simple SIGIL Example", false);
@@ -23,7 +25,7 @@ int main()
 		slRender();
 	}
 
-	slClose();
+	slClose();*/
 
 	return 0;
 }

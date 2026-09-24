@@ -16,18 +16,18 @@ void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rec
 
 	currentButton.text = text;
 
-	currentButton.hitbox.x = position.x - currentButton.hitbox.width / 2;
-	currentButton.hitbox.y = position.y - currentButton.hitbox.height / 2;
+	currentButton.hitbox.center.x = position.x;
+	currentButton.hitbox.center.y = position.y;
 }
 
 void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
 {
-	double minX = currentButton.hitbox.x;
-	double minY = currentButton.hitbox.y;
-	double maxX = currentButton.hitbox.x + currentButton.hitbox.width;
-	double maxY = currentButton.hitbox.y + currentButton.hitbox.height;
+	double minX = currentButton.hitbox.minPosition.x;
+	double minY = currentButton.hitbox.minPosition.y;
+	double maxX = currentButton.hitbox.minPosition.x + currentButton.hitbox.width;
+	double maxY = currentButton.hitbox.minPosition.y + currentButton.hitbox.height;
 
-	if ((mousePosition.x > minX && mousePosition.x < maxX) && (mousePosition.y > minY && mousePosition.y < maxY))
+	if ((mousePosition.x >= minX && mousePosition.x <= maxX) && (mousePosition.y >= minY && mousePosition.y <= maxY))
 	{
 		currentButton.isMouseOnButton = true;
 		currentButton.currentColor = currentButton.selectColor;
@@ -41,6 +41,8 @@ void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
 
 void DrawButton(Button currentButton)
 {
-	slRectangleFill(currentButton.hitbox.x, currentButton.hitbox.y, currentButton.hitbox.width, currentButton.hitbox.height);
+	slSetForeColor(currentButton.currentColor.red, currentButton.currentColor.green, currentButton.currentColor.blue, 100);
+	slRectangleFill(currentButton.hitbox.center.x, currentButton.hitbox.center.y, currentButton.hitbox.width, currentButton.hitbox.height);
+	slSetForeColor(currentButton.text.tint.red, currentButton.text.tint.green, currentButton.text.tint.blue, 100);
 	DrawText(currentButton.text, SL_ALIGN_CENTER);
 }

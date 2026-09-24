@@ -4,6 +4,9 @@
 #include "Color.h"
 #include "Rectangle.h"
 
+const double BUTTON_WIDTH = 200;
+const double BUTTON_HEIGHT = 60;
+
 struct Button
 {
 	bool isPressed;

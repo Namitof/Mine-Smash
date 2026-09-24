@@ -12,14 +12,18 @@
 #include "Player.h"
 #include "Ball.h"
 
-void Init();
+#include "Button.h"
 
-void Update(ScreenOptions& currentOption);
+#include "ScreenMenu.h"
 
-void Draw(ScreenOptions& currentOption);
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton);
+
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton);
+
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton);
 
 
-void Init()
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton)
 {
 	slWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mine-Smash", false);
 
@@ -55,6 +59,34 @@ void Init()
 	const int OFFSET_TEXT_MODE_BUTTON_X = 8;
 	const int OFFSET_TEXT_MODE_BUTTON_Y = 15;
 
+	int font = slLoadFont("../res/KiwiSoda.ttf");
+
+	double fontSize = 20;
+
+	Rectangle buttonHitbox;
+	buttonHitbox.width = BUTTON_WIDTH;
+	buttonHitbox.height = BUTTON_HEIGHT;
+	buttonHitbox.minPosition.x = SCREEN_WIDTH / 2 - (buttonHitbox.width / 2);
+	buttonHitbox.minPosition.y = SCREEN_HEIGHT / 2 - (buttonHitbox.height / 2);
+
+	Vector2 buttonPosition;
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = SCREEN_HEIGHT / 2;
+
+	Text playText;
+	Vector2 textPosition;
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - 2; //Normalizar ese 2 en base a el font size
+
+	TextInit(playText, font, fontSize, "Play", textPosition, WHITE);
+
+
+
+	ButtonInit(playButton, ORANGE, BROWN, buttonHitbox, playText, buttonPosition);
+
+
+
+	/*
 	ButtonInit(playButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Jugar", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - OFFSET_PLAYBUTTON_Y);
 	SetTextPos(playButton.text, playButton.hitbox.x + OFFSET_TEXT_PLAYBUTTON_X, playButton.hitbox.y + OFFSET_TEXT_PLAYBUTTON_Y);
 
@@ -80,16 +112,18 @@ void Init()
 	SetPlayers(player1, player2, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SetBall(ball, SCREEN_WIDTH, SCREEN_HEIGHT);
+	*/
+
 
 }
 
-void Update(ScreenOptions& currentOption)
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton)
 {
 	switch (currentOption)
 	{
 	case ScreenOptions::Menu:
 		UpdateMenu(playButton, settingsButton, rulesButton, creditsButton, exitButton);
-		if (playButton.isPressed)
+		/*if (playButton.isPressed)
 		{
 			currentOption = ScreenOptions::Play;
 			playButton.isPressed = false;
@@ -129,10 +163,10 @@ void Update(ScreenOptions& currentOption)
 		{
 			currentOption = ScreenOptions::Settings;
 			settingsButton.isPressed = false;
-		}
+		}*/
 		break;
 	case ScreenOptions::Play:
-		PlayGame(player1, player2, ball, mid, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
+		/*PlayGame(player1, player2, ball, mid, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
 		if (isGameOver)
 		{
 			currentOption = ScreenOptions::Win;
@@ -140,10 +174,10 @@ void Update(ScreenOptions& currentOption)
 		else if (IsKeyDown(KEY_P))
 		{
 			currentOption = ScreenOptions::Menu;
-		}
+		}*/
 		break;
 	case ScreenOptions::Settings:
-		UpdateSettings(backButton, gameModeButton);
+		/*UpdateSettings(backButton, gameModeButton);
 		if (backButton.isPressed)
 		{
 			currentOption = ScreenOptions::Menu;
@@ -169,38 +203,40 @@ void Update(ScreenOptions& currentOption)
 				break;
 			}
 			gameModeButton.isPressed = false;
-		}
+		}*/
 		break;
 	case ScreenOptions::Rules:
-		UpdateRules(backButton);
+		/*UpdateRules(backButton);
 		if (backButton.isPressed)
 		{
 			currentOption = ScreenOptions::Menu;
 			backButton.isPressed = false;
-		}
+		}*/
 		break;
 	case ScreenOptions::Credits:
-		UpdateCredits(backButton);
+		/*UpdateCredits(backButton);
 		if (backButton.isPressed)
 		{
 			currentOption = ScreenOptions::Menu;
 			backButton.isPressed = false;
-		}
+		}*/
 
 		break;
+	case ScreenOptions::Pause:
+		break;
 	case ScreenOptions::Win:
-		if (IsKeyDown(KEY_ENTER))
+		/*if (IsKeyDown(KEY_ENTER))
 		{
 			currentOption = ScreenOptions::Menu;
 			isGameOver = false;
-		}
+		}*/
 		break;
 	default:
 		break;
 	}
 }
 
-void Draw(ScreenOptions& currentOption)
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton)
 {
 	slSetBackColor(BLACK.red, BLACK.green, BLACK.blue);
 	switch (currentOption)
@@ -209,20 +245,22 @@ void Draw(ScreenOptions& currentOption)
 		DrawMenu(playButton, settingsButton, rulesButton, creditsButton, exitButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Play:
-		DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Settings:
-		DrawSettings(backButton, gameModeButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawSettings(backButton, gameModeButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Rules:
-		DrawRules(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawRules(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Credits:
-		DrawCredits(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawCredits(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		break;
+	case ScreenOptions::Pause:
 		break;
 	case ScreenOptions::Win:
-		DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
-		DrawPlayerWin(player1, player2, END_SCORE, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//DrawPlayerWin(player1, player2, END_SCORE, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	default:
 		break;
@@ -246,24 +284,23 @@ void Run()
 
 	//Variables para el gameplay
 	bool isGameOver = false;
-	GameMode currentMode = GameMode::P1vsP2;
+	//GameMode currentMode = GameMode::P1vsP2;
 
 	//Variables de juego
 	Player player1;
-
 	Obstacle obstacles[ROWS][COLUMNS] = {};
-
 	Ball ball;
 
-	const int HUD_PLAYER_1_X = SCREEN_WIDTH / 4;
-	const int HUD_PLAYER_1_Y = 12;
-	const int HUD_PLAYER_2_X = ((SCREEN_WIDTH / 4) * 3) - 50;
-	const int HUD_PLAYER_2_Y = 12;
+	//Constantes para el HUD
+	//const int HUD_PLAYER_1_X = SCREEN_WIDTH / 4;
+	//const int HUD_PLAYER_1_Y = 12;
+	//const int HUD_PLAYER_2_X = ((SCREEN_WIDTH / 4) * 3) - 50;
+	//const int HUD_PLAYER_2_Y = 12;
 
 	double deltaTime = 0;
 
 	//Inicialización
-	Init();
+	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
 
 	//Loop
 	while (!slShouldClose() && currentOption != ScreenOptions::Exit && !slGetKey(SL_KEY_ESCAPE))
@@ -271,10 +308,16 @@ void Run()
 		deltaTime = slGetDeltaTime();
 
 		//Update (actualizacion)
-		Update(currentOption);
+		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
 
 		//Draw (dibujado)
-		Draw(currentOption);
+		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
+		
+		/*
+		slSetBackColor(BLACK.red, BLACK.green, BLACK.blue);
+		slText(100, 100, "HOLA");
+		slRender();
+		*/
 	}
 
 	//Cierre
