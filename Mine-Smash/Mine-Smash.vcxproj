@@ -131,15 +131,15 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
 mkdir res
 cd "$(SolutionDir)"
-xcopy "$(SolutionDir)res" "$(OutDir)res" /E</Command>
+xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,15 +164,15 @@ xcopy "$(SolutionDir)res" "$(OutDir)res" /E</Command>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
-copy "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\glew32.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\OpenAL32.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
 mkdir res
 cd "$(SolutionDir)"
-xcopy "$(SolutionDir)res" "$(OutDir)res" /E</Command>
+xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
