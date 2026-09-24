@@ -14,3 +14,9 @@ struct Button
 	Text text;
 	Rectangle hitbox;
 };
+
+void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text text, Vector2 position);
+
+void IsMouseOnButton(Button& currentButton, Vector2 mousePosition);
+
+void DrawButton(Button currentButton);
