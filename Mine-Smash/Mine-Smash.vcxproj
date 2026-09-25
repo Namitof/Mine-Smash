@@ -137,7 +137,7 @@ copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
-mkdir res
+mkdir -p res
 cd "$(SolutionDir)"
 xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>
@@ -170,7 +170,7 @@ copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
-mkdir res
+mkdir -p res
 cd "$(SolutionDir)"
 xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>

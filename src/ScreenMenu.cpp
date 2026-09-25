@@ -95,10 +95,11 @@ void DrawMenu(Button playButton, Button settingsButton, Button rulesButton, Butt
 	//DrawLogo(screenWidht, screenHeight);
 	DrawButton(playButton);
 
-	//DrawButton(rulesButton);
-	
-	//DrawButton(creditsButton);
-	//DrawButton(exitButton);
+	DrawButton(settingsButton);
 
-	//DrawButton(settingsButton);
+	DrawButton(rulesButton);
+	
+	DrawButton(creditsButton);
+	DrawButton(exitButton);
+
 }

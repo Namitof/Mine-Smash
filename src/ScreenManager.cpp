@@ -29,39 +29,13 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	srand(time(NULL));
 
-	const int CREDITS_TEXT_SIZE = 38;
-
-	const int OFFSET_PLAYBUTTON_Y = 30;
-	const int OFFSET_TEXT_PLAYBUTTON_X = 30;
-	const int OFFSET_TEXT_PLAYBUTTON_Y = 8;
-
-	const int OFFSET_SETTINGS_BUTTON_Y = 26;
-	const int OFFSET_TEXT_SETTINGS_BUTTON_X = 5;
-	const int OFFSET_TEXT_SETTINGS_BUTTON_Y = 8;
-
-	const int OFFSET_RULES_BUTTON_Y = 22;
-	const int OFFSET_TEXT_RULES_BUTTON_X = 18;
-	const int OFFSET_TEXT_RULES_BUTTON_Y = 8;
-
-	const int OFFSET_CREDITS_BUTTON_Y = 18;
-	const int OFFSET_TEXT_CREDITS_BUTTON_X = 5;
-	const int OFFSET_TEXT_CREDITS_BUTTON_Y = 8;
-
-	const int OFFSET_EXIT_BUTTON_Y = 14;
-	const int OFFSET_TEXT_EXIT_BUTTON_X = 45;
-	const int OFFSET_TEXT_EXIT_BUTTON_Y = 8;
-
-	const int OFFSET_BACK_BUTTON_Y = 20;
-	const int OFFSET_TEXT_BACK_BUTTON_X = 14;
-	const int OFFSET_TEXT_BACK_BUTTON_Y = 8;
-
-	const int OFFSET_MODE_BUTTON_Y = 20;
-	const int OFFSET_TEXT_MODE_BUTTON_X = 8;
-	const int OFFSET_TEXT_MODE_BUTTON_Y = 15;
-
 	int font = slLoadFont("../res/KiwiSoda.ttf");
 
-	double fontSize = 20;
+	const double fontSize = 32;
+
+	const double NORMALIZE = 0.2;
+
+	const double SPACE_BETWEEN_BUTTONS = 10;
 
 	Rectangle buttonHitbox;
 	buttonHitbox.width = BUTTON_WIDTH;
@@ -70,38 +44,53 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	buttonHitbox.minPosition.y = SCREEN_HEIGHT / 2 - (buttonHitbox.height / 2);
 
 	Vector2 buttonPosition;
-	buttonPosition.x = SCREEN_WIDTH / 2;
-	buttonPosition.y = SCREEN_HEIGHT / 2;
 
-	Text playText;
+	Text currentText;
+
 	Vector2 textPosition;
+
+	//Init a playButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (-1 * buttonHitbox.height) - (-1 * SPACE_BETWEEN_BUTTONS);
 	textPosition.x = buttonPosition.x;
-	textPosition.y = buttonPosition.y - 2; //Normalizar ese 2 en base a el font size
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Play", textPosition, WHITE);
+	ButtonInit(playButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition);
 
-	TextInit(playText, font, fontSize, "Play", textPosition, WHITE);
+	//Init a settingsButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (0 * buttonHitbox.height) - (0 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Settings", textPosition, WHITE);
+	ButtonInit(settingsButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition);
 
+	//Init a rulesButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (1 * buttonHitbox.height) - (1 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Rules", textPosition, WHITE);
+	ButtonInit(rulesButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition);
 
+	//Init a creditsButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (2 * buttonHitbox.height) - (2 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Credits", textPosition, WHITE);
+	ButtonInit(creditsButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition);
 
-	ButtonInit(playButton, ORANGE, BROWN, buttonHitbox, playText, buttonPosition);
-
+	//Init a exitButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (3 * buttonHitbox.height) - (3 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Exit", textPosition, WHITE);
+	ButtonInit(exitButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition);
 
 
 	/*
-	ButtonInit(playButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Jugar", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - OFFSET_PLAYBUTTON_Y);
-	SetTextPos(playButton.text, playButton.hitbox.x + OFFSET_TEXT_PLAYBUTTON_X, playButton.hitbox.y + OFFSET_TEXT_PLAYBUTTON_Y);
-
-	ButtonInit(settingsButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Ajustes", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 1 - OFFSET_SETTINGS_BUTTON_Y);
-	SetTextPos(settingsButton.text, settingsButton.hitbox.x + OFFSET_TEXT_SETTINGS_BUTTON_X, settingsButton.hitbox.y + OFFSET_TEXT_SETTINGS_BUTTON_Y);
-
-	ButtonInit(rulesButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Reglas", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 2 - OFFSET_RULES_BUTTON_Y);
-	SetTextPos(rulesButton.text, rulesButton.hitbox.x + OFFSET_TEXT_RULES_BUTTON_X, rulesButton.hitbox.y + OFFSET_TEXT_RULES_BUTTON_Y);
-
-	ButtonInit(creditsButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE - 5, RAYWHITE, "Creditos", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 3 - OFFSET_CREDITS_BUTTON_Y);
-	SetTextPos(creditsButton.text, creditsButton.hitbox.x + OFFSET_TEXT_CREDITS_BUTTON_X, creditsButton.hitbox.y + OFFSET_TEXT_CREDITS_BUTTON_Y);
-
-	ButtonInit(exitButton, BUTTON_WIDTH, BUTTON_HEIGHT, RED, MAROON, TEXT_SIZE, RAYWHITE, "Salir", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 4 - OFFSET_EXIT_BUTTON_Y);
-	SetTextPos(exitButton.text, exitButton.hitbox.x + OFFSET_TEXT_EXIT_BUTTON_X, exitButton.hitbox.y + OFFSET_TEXT_EXIT_BUTTON_Y);
-
 	ButtonInit(backButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Volver", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 4 - OFFSET_BACK_BUTTON_Y);
 	SetTextPos(backButton.text, backButton.hitbox.x + OFFSET_TEXT_BACK_BUTTON_X, backButton.hitbox.y + OFFSET_TEXT_BACK_BUTTON_Y);
 
