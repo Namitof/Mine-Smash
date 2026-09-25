@@ -9,4 +9,5 @@ struct Obstacle
 {
 	Rectangle hitbox;
 	Color tint;
+	bool isAlive;
 };

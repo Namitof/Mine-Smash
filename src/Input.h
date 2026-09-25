@@ -1,4 +1,6 @@
 #pragma once
 #include "Player.h"
 
-void PlayerInput(Player& player, double leftLimit, double rightLimit, double deltaTime);
+#include "Ball.h"
+
+void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit, double deltaTime);

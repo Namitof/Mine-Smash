@@ -137,7 +137,7 @@ copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
-mkdir -p res
+mkdir res
 cd "$(SolutionDir)"
 xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>
@@ -170,7 +170,7 @@ copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\sigil.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)lib\sigil-vc2015-win64\wrap_oal.dll" "$(OutDir)"
 
 cd "$(OutDir)"
-mkdir -p res
+mkdir res
 cd "$(SolutionDir)"
 xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     </PostBuildEvent>
@@ -184,6 +184,7 @@ xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     <ClCompile Include="..\src\Obstacle.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\ScreenCredits.cpp" />
+    <ClCompile Include="..\src\ScreenGame.cpp" />
     <ClCompile Include="..\src\ScreenManager.cpp" />
     <ClCompile Include="..\src\ScreenMenu.cpp" />
     <ClCompile Include="..\src\ScreenRules.cpp" />
@@ -200,6 +201,7 @@ xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\Rectangle.h" />
     <ClInclude Include="..\src\ScreenCredits.h" />
+    <ClInclude Include="..\src\ScreenGame.h" />
     <ClInclude Include="..\src\ScreenManager.h" />
     <ClInclude Include="..\src\ScreenMenu.h" />
     <ClInclude Include="..\src\ScreenRules.h" />

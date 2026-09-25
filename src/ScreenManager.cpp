@@ -1,29 +1,29 @@
 #include "ScreenManager.h"
 
-#include <sl.h>
-
-#include <ctime>
-
-#include <cstdlib>
-
 #include "Color.h"
+#include "Vector2.h"
 
 #include "Obstacle.h"
 #include "Player.h"
 #include "Ball.h"
-
 #include "Button.h"
 
 #include "ScreenMenu.h"
+#include "ScreenGame.h"
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton);
-
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton);
-
-void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton);
+#include <sl.h>
+#include <ctime>
+#include <cstdlib>
 
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton)
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS]);
+
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode);
+
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS]);
+
+
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS])
 {
 	slWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mine-Smash", false);
 
@@ -103,27 +103,24 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	SetBall(ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 	*/
 
-
+	InitializePlayer(player, SCREEN_WIDTH);
+	InitializeBall(ball, player.hitbox.center);
 }
 
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton)
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)
 {
 	switch (currentOption)
 	{
 	case ScreenOptions::Menu:
 		UpdateMenu(playButton, settingsButton, rulesButton, creditsButton, exitButton);
-		/*if (playButton.isPressed)
+		if (playButton.isPressed)
 		{
 			currentOption = ScreenOptions::Play;
 			playButton.isPressed = false;
-			switch (currentMode)
+			/*switch (currentMode)
 			{
-			case GameMode::P1vsP2:
+			case GameMode::Normal:
 				SetPlayers(player1, player2, SCREEN_WIDTH, SCREEN_HEIGHT);
-				break;
-			case GameMode::P1vsCPU:
-				SetPlayers(player1, player2, SCREEN_WIDTH, SCREEN_HEIGHT);
-				SetPlayerCpu(player2);
 				break;
 			case GameMode::Unlimited:
 				SetPlayers(player1, player2, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -131,7 +128,7 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 			default:
 				break;
 			}
-			SetBall(ball, SCREEN_WIDTH, SCREEN_HEIGHT);
+			SetBall(ball, SCREEN_WIDTH, SCREEN_HEIGHT);*/
 		}
 		else if (creditsButton.isPressed)
 		{
@@ -152,11 +149,11 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		{
 			currentOption = ScreenOptions::Settings;
 			settingsButton.isPressed = false;
-		}*/
+		}
 		break;
 	case ScreenOptions::Play:
-		/*PlayGame(player1, player2, ball, mid, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
-		if (isGameOver)
+		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
+		/*if (isGameOver)
 		{
 			currentOption = ScreenOptions::Win;
 		}
@@ -176,17 +173,13 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		{
 			switch (currentMode)
 			{
-			case GameMode::P1vsP2:
-				currentMode = GameMode::P1vsCPU;
-				gameModeButton.text.text = "P1 vs CPU ";
-				break;
-			case GameMode::P1vsCPU:
+			case GameMode::Normal:
 				currentMode = GameMode::Unlimited;
 				gameModeButton.text.text = " Ilimitado ";
 				break;
 			case GameMode::Unlimited:
-				currentMode = GameMode::P1vsP2;
-				gameModeButton.text.text = " P1 vs P2 ";
+				currentMode = GameMode::Normal;
+				gameModeButton.text.text = " Normal ";
 				break;
 			default:
 				break;
@@ -212,6 +205,9 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 
 		break;
 	case ScreenOptions::Pause:
+		/*
+		
+		*/
 		break;
 	case ScreenOptions::Win:
 		/*if (IsKeyDown(KEY_ENTER))
@@ -225,8 +221,14 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 	}
 }
 
-void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton)
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS])
 {
+
+	float hudPlayer1X = 0;
+	float hudPlayer1Y = 0;
+	float hudPlayer2X = 0;
+	float hudPlayer2Y = 0;
+
 	slSetBackColor(BLACK.red, BLACK.green, BLACK.blue);
 	switch (currentOption)
 	{
@@ -234,7 +236,7 @@ void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton,
 		DrawMenu(playButton, settingsButton, rulesButton, creditsButton, exitButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Play:
-		//DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
+		DrawGameFrame(player, obstacles, ball, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Settings:
 		//DrawSettings(backButton, gameModeButton, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -273,11 +275,17 @@ void Run()
 
 	//Variables para el gameplay
 	bool isGameOver = false;
-	//GameMode currentMode = GameMode::P1vsP2;
+	GameMode currentMode = GameMode::Normal;
+
+	//Variables para sonido
+	bool musicOn = true;
+	bool soundsOn = true;
 
 	//Variables de juego
-	Player player1;
+	Player player;
+
 	Obstacle obstacles[ROWS][COLUMNS] = {};
+
 	Ball ball;
 
 	//Constantes para el HUD
@@ -289,7 +297,7 @@ void Run()
 	double deltaTime = 0;
 
 	//Inicialización
-	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
+	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles);
 
 	//Loop
 	while (!slShouldClose() && currentOption != ScreenOptions::Exit && !slGetKey(SL_KEY_ESCAPE))
@@ -297,16 +305,10 @@ void Run()
 		deltaTime = slGetDeltaTime();
 
 		//Update (actualizacion)
-		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
+		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, deltaTime, isGameOver, currentMode);
 
 		//Draw (dibujado)
-		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
-		
-		/*
-		slSetBackColor(BLACK.red, BLACK.green, BLACK.blue);
-		slText(100, 100, "HOLA");
-		slRender();
-		*/
+		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles);
 	}
 
 	//Cierre

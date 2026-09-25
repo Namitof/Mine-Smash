@@ -100,6 +100,7 @@ void DrawMenu(Button playButton, Button settingsButton, Button rulesButton, Butt
 	DrawButton(rulesButton);
 	
 	DrawButton(creditsButton);
+
 	DrawButton(exitButton);
 
 }
