@@ -79,6 +79,9 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	//Dibujar pelota
 	DrawBall(ball);
 
+	//Dibujar bloques
+	DrawObstacles(obstacles);
+
 	//Dibujar score
 	/*DrawText(TextFormat("%02i", player1.score), hudPlayer1X, hudPlayer1Y, HUD_TEXT_SCORE_SIZE, GOLD);
 	DrawText(TextFormat("%02i", player2.score), hudPlayer2X, hudPlayer2Y, HUD_TEXT_SCORE_SIZE, GOLD);

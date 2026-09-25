@@ -97,14 +97,16 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	ButtonInit(gameModeButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, CREDITS_TEXT_SIZE, RAYWHITE, " P1 vs P2 ", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 2 - OFFSET_MODE_BUTTON_Y);
 
 	SetTextPos(gameModeButton.text, gameModeButton.hitbox.x + OFFSET_TEXT_MODE_BUTTON_X, gameModeButton.hitbox.y + OFFSET_TEXT_MODE_BUTTON_Y);
-
-	SetPlayers(player1, player2, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	SetBall(ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 	*/
 
 	InitializePlayer(player, SCREEN_WIDTH);
-	InitializeBall(ball, player.hitbox.center);
+
+	Vector2 ballPosition = player.hitbox.center;
+	ballPosition.y += (player.hitbox.height * 2);
+
+	InitializeBall(ball, ballPosition);
+
+	InitializeObstacles(obstacles);
 }
 
 void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)
@@ -285,6 +287,7 @@ void Run()
 	Player player;
 
 	Obstacle obstacles[ROWS][COLUMNS] = {};
+	int activeObstacles = ROWS * COLUMNS;
 
 	Ball ball;
 
