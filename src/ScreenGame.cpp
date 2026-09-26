@@ -43,6 +43,8 @@ void WasALifeLost(Player& player, Ball& ball, int downLimit)
 		ballPosition.y += (player.hitbox.height * 2);
 
 		InitializeBall(ball, ballPosition);
+
+		player.life--;
 	}
 }
 
@@ -92,7 +94,7 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawBall(ball);
 
 	//Dibujar bloques
-	//DrawObstacles(obstacles);
+	DrawObstacles(obstacles);
 
 	//Dibujar score
 	/*DrawText(TextFormat("%02i", player1.score), hudPlayer1X, hudPlayer1Y, HUD_TEXT_SCORE_SIZE, GOLD);
@@ -134,10 +136,10 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 
 		UpdateBall(ball, deltaTime, player.hitbox.center);
 
-		/*if (currentMode != GameMode::Unlimited)
+		if (player.life <= 0)
 		{
-			isGameOver = GameIsRunning(player1.score, player2.score, END_SCORE);
-		}*/
+			isGameOver = true;
+		}
 	}
 
 }

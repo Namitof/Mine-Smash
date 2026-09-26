@@ -106,9 +106,9 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	InitializeBall(ball, ballPosition);
 
-	InitializeObstacles(obstacles);
+	//InitializeObstacles(obstacles);
 
-	//InitializeObstacles(obstacles, SCREEN_WIDTH);
+	InitializeObstacles(obstacles, SCREEN_WIDTH);
 }
 
 void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)
@@ -157,11 +157,11 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		break;
 	case ScreenOptions::Play:
 		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
-		/*if (isGameOver)
+		if (isGameOver)
 		{
-			currentOption = ScreenOptions::Win;
+			currentOption = ScreenOptions::Menu;
 		}
-		else if (IsKeyDown(KEY_P))
+		/*else if (IsKeyDown(KEY_P))
 		{
 			currentOption = ScreenOptions::Menu;
 		}*/

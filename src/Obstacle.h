@@ -17,10 +17,7 @@ struct Obstacle
 
 void InitializeOneObstacle(Obstacle& currentObstacle, Vector2 position);
 
-void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS]);
-
 void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS], int screenWidth);
-
 
 void DrawOneObstacle(Obstacle currentObstacle);
 

@@ -21,31 +21,6 @@ void InitializeOneObstacle(Obstacle& currentObstacle, Vector2 position)
 	currentObstacle.hitbox.center.y = currentObstacle.hitbox.minPosition.y + (currentObstacle.hitbox.height / 2);
 }
 
-void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS])
-{
-	const double INITAL_POS_Y = 600;
-
-	const double VERTICAL_SEPARATION = 10;
-	const double HORIZONTAL_SEPARATION = 18.18;
-
-	Vector2 position;
-	position.x = HORIZONTAL_SEPARATION;
-	position.y = INITAL_POS_Y;
-
-	for (int i = 0; i < ROWS; i++)
-	{
-		position.x = HORIZONTAL_SEPARATION;
-
-		for (int j = 0; j < COLUMNS; j++)
-		{
-			InitializeOneObstacle(obstacles[i][j], position);
-			position.x += OBSTACLE_WIDTH + HORIZONTAL_SEPARATION;
-		}
-
-		position.y -= (OBSTACLE_HEIGHT + VERTICAL_SEPARATION);
-	}
-}
-
 void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS], int screenWidth)
 {
 	const double INITAL_POS_Y = 600;

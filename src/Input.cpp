@@ -48,7 +48,6 @@ void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit
 		ShootBall(ball);
 	}
 	
-
 	/*
 	if (p)
 	{

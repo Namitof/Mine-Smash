@@ -149,8 +149,6 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 		double centerY = player.center.y;
 
 		ApplyNewAngle(ball, player, player.minPosition.x);
-		/*ball.dir.x = sin(ball.angle);
-		ball.dir.y = cos(ball.angle);*/
 		ball.dir.x = cos(ball.angle);
 		ball.dir.y = sin(ball.angle);
 
@@ -164,15 +162,6 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 			diffX = player.minPosition.x + player.width - minX;
 			diffY = player.minPosition.y + player.height - minY;
 		}
-
-		/*if (diffX < 0)
-		{
-			diffX -= 5;
-		}
-		else
-		{
-			diffX += 5;
-		}*/
 
 		double absDiffX = CalculateAbsoluteValue(diffX);
 		double absDiffY = CalculateAbsoluteValue(diffY);
@@ -195,55 +184,55 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 	}
 	else
 	{
-		////Chequeo colision con cada obstaculo
-		//for (int i = 0; i < ROWS; i++)
-		//{
-		//	for (int j = 0; j < COLUMNS; j++)
-		//	{
-		//		if (obstacles[i][j].isActive)
-		//		{
-		//			inCollision = CollisionAABB(obstacles[i][j].hitbox, minX, minY, maxX, maxY);
-		//			if (inCollision)
-		//			{
-		//				double centerX = obstacles[i][j].hitbox.center.x;
-		//				double centerY = obstacles[i][j].hitbox.center.y;
+		//Chequeo colision con cada obstaculo
+		for (int i = 0; i < ROWS; i++)
+		{
+			for (int j = 0; j < COLUMNS; j++)
+			{
+				if (obstacles[i][j].isActive)
+				{
+					inCollision = CollisionAABB(obstacles[i][j].hitbox, minX, minY, maxX, maxY);
+					if (inCollision)
+					{
+						double centerX = obstacles[i][j].hitbox.center.x;
+						double centerY = obstacles[i][j].hitbox.center.y;
 
-		//				ApplyNewAngle(ball, player, centerX);
-		//				ball.dir.x = sin(ball.angle);
-		//				ball.dir.y = cos(ball.angle);
+						ApplyNewAngle(ball, obstacles[i][j].hitbox, obstacles[i][j].hitbox.minPosition.x);
+						ball.dir.x = sin(ball.angle);
+						ball.dir.y = cos(ball.angle);
 
-		//				if (maxX < centerX) //golpea de izquieda
-		//				{
-		//					diffX = maxX - obstacles[i][j].hitbox.minPosition.x;
-		//					diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
-		//				}
-		//				else if (minX > centerX) //golpea de derecha
-		//				{
-		//					diffX = obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width - minX;
-		//					diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
-		//				}
+						if (maxX < centerX) //golpea de izquieda
+						{
+							diffX = obstacles[i][j].hitbox.minPosition.x - maxX;
+							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
+						}
+						else if (minX > centerX) //golpea de derecha
+						{
+							diffX = obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width - minX;
+							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
+						}
 
-		//				double absDiffX = CalculateAbsoluteValue(diffX);
-		//				double absDiffY = CalculateAbsoluteValue(diffY);
-		//				SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
+						double absDiffX = CalculateAbsoluteValue(diffX);
+						double absDiffY = CalculateAbsoluteValue(diffY);
+						SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
 
 
-		//				if (maxY < centerY) //golpea de arriba
-		//				{
-		//					ball.dir.y *= -1;
+						if (maxY < centerY) //golpea de arriba
+						{
+							ball.dir.y *= -1;
 
-		//				}
-		//				else if (minY > centerY) //golpea de abajo
-		//				{
-		//					ball.dir.x *= -1;
+						}
+						else if (minY > centerY) //golpea de abajo
+						{
+							ball.dir.x *= -1;
 
-		//				}
+						}
 
-		//				obstacles[i][j].isActive = false;
-		//			}
-		//		}
-		//	}
-		//}
+						obstacles[i][j].isActive = false;
+					}
+				}
+			}
+		}
 	}
 
 	
