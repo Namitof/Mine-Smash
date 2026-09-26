@@ -107,6 +107,8 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	InitializeBall(ball, ballPosition);
 
 	InitializeObstacles(obstacles);
+
+	//InitializeObstacles(obstacles, SCREEN_WIDTH);
 }
 
 void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)

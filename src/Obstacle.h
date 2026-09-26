@@ -2,11 +2,11 @@
 #include "Rectangle.h"
 #include "Color.h"
 
-const int ROWS = 6;
-const int COLUMNS = 10;
+const int ROWS = 6; //6
+const int COLUMNS = 8;  //8
 
-const int OBSTACLE_WIDTH = 80;
-const int OBSTACLE_HEIGHT = 80;
+const int OBSTACLE_WIDTH = 80; //80
+const int OBSTACLE_HEIGHT = 80; //80
 
 struct Obstacle
 {
@@ -18,6 +18,9 @@ struct Obstacle
 void InitializeOneObstacle(Obstacle& currentObstacle, Vector2 position);
 
 void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS]);
+
+void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS], int screenWidth);
+
 
 void DrawOneObstacle(Obstacle currentObstacle);
 

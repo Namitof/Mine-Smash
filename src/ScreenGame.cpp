@@ -4,6 +4,8 @@
 #include "Obstacle.h"
 #include "Ball.h"
 
+#include "Vector2.h"
+
 #include "Input.h"
 #include "CollisionManager.h"
 
@@ -33,6 +35,16 @@ bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, 
 
 }
 
+void WasALifeLost(Player& player, Ball& ball, int downLimit)
+{
+	if (ball.center.y <= downLimit)
+	{
+		Vector2 ballPosition = player.hitbox.center;
+		ballPosition.y += (player.hitbox.height * 2);
+
+		InitializeBall(ball, ballPosition);
+	}
+}
 
 //bool isWin()
 //{
@@ -80,7 +92,7 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawBall(ball);
 
 	//Dibujar bloques
-	DrawObstacles(obstacles);
+	//DrawObstacles(obstacles);
 
 	//Dibujar score
 	/*DrawText(TextFormat("%02i", player1.score), hudPlayer1X, hudPlayer1Y, HUD_TEXT_SCORE_SIZE, GOLD);
@@ -96,24 +108,26 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 		PlayerInput(player, ball, 0, screenWidth, deltaTime);
 
 		//Actualización
-		//CheckCollision(ball, player1.hitbox, player2.hitbox, 0, screenHeight);
+		CheckCollision(ball, player.hitbox, obstacles, screenHeight, 0, screenWidth);
+
+		WasALifeLost(player, ball, 0);
 
 		////limite izquiedo y derecho los chequeo en caso de que la pelota llegue sumo puntos y la vuelvo a setear
-		//if (WasPointScored(player1.score, player2.score, player1.xp, player2.xp, ball, 0, screenWidth))
-		//{
-		//	SetBall(ball, screenWidth, screenHeight);
-		//	InitializePlayer(player1);
-		//	if (currentMode != GameMode::P1vsCPU)
-		//	{
-		//		InitializePlayer(player2);
-		//	}
-		//	else
-		//	{
-		//		SetPlayerCpu(player2);
-		//	}
-		//	player1.color = BLUE;
-		//	player2.color = RED;
-		//}
+		/*if (WasPointScored(player1.score, player2.score, player1.xp, player2.xp, ball, 0, screenWidth))
+		{
+			SetBall(ball, screenWidth, screenHeight);
+			InitializePlayer(player1);
+			if (currentMode != GameMode::P1vsCPU)
+			{
+				InitializePlayer(player2);
+			}
+			else
+			{
+				SetPlayerCpu(player2);
+			}
+			player1.color = BLUE;
+			player2.color = RED;
+		}*/
 
 		//EvaluateLevel(player1, ball.speed, ball.color);
 		//EvaluateLevel(player2, ball.speed, ball.color);
