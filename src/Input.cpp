@@ -43,7 +43,7 @@ void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit
 		
 	}
 
-	if (slGetKey('W') || slGetKey('w'))
+	if (ball.isCatch && (slGetKey('W') || slGetKey('w')))
 	{
 		ShootBall(ball);
 	}
