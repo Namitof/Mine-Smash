@@ -2,7 +2,7 @@
 #include "Rectangle.h"
 #include "Color.h"
 
-const int ROWS = 6; //6
+const int ROWS = 3; //6
 const int COLUMNS = 8;  //8
 
 const int OBSTACLE_WIDTH = 80; //80

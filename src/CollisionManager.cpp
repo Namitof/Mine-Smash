@@ -7,7 +7,6 @@
 #include "Rectangle.h"
 
 #include <cmath>
-#include <iostream>
 
 double CalculateAbsoluteValue(double number);
 
@@ -113,11 +112,7 @@ void ApplyNewAngle(Ball& ball, Rectangle currentPlayer, double leftBorderX)
 		normalizedImpact = 1;
 	}
 
-	std::cout << normalizedImpact << std::endl;
-
 	double newAngle = MAX_ANGLE - (normalizedImpact * (MAX_ANGLE - MIN_ANGLE));
-
-	std::cout << newAngle << std::endl;
 
 	//Convertir a radianes
 	newAngle *= (PI / 180);
@@ -125,7 +120,7 @@ void ApplyNewAngle(Ball& ball, Rectangle currentPlayer, double leftBorderX)
 	ball.angle = newAngle;
 }
 
-void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUMNS], double upperLimit, double leftLimit, double rightLimit)
+void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, int& playerScore, double upperLimit, double leftLimit, double rightLimit)
 {
 	bool inCollision = false;
 
@@ -152,7 +147,7 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 		ball.dir.x = cos(ball.angle);
 		ball.dir.y = sin(ball.angle);
 
-		if (maxX < centerX) //golpea de izquieda
+		if (maxX < centerX) //golpea de izquierda
 		{
 			diffX = player.minPosition.x - maxX;
 			diffY = player.minPosition.y + player.height - minY;
@@ -198,10 +193,10 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 						double centerY = obstacles[i][j].hitbox.center.y;
 
 						ApplyNewAngle(ball, obstacles[i][j].hitbox, obstacles[i][j].hitbox.minPosition.x);
-						ball.dir.x = sin(ball.angle);
-						ball.dir.y = cos(ball.angle);
+						ball.dir.x = cos(ball.angle);
+						ball.dir.y = sin(ball.angle);
 
-						if (maxX < centerX) //golpea de izquieda
+						if (maxX < centerX) //golpea de izquierda
 						{
 							diffX = obstacles[i][j].hitbox.minPosition.x - maxX;
 							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
@@ -212,23 +207,21 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
 						}
 
+
 						double absDiffX = CalculateAbsoluteValue(diffX);
 						double absDiffY = CalculateAbsoluteValue(diffY);
 						SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
 
 
-						if (maxY < centerY) //golpea de arriba
-						{
-							ball.dir.y *= -1;
+						ball.dir.y *= -1;
+						ball.dir.x *= -1;
 
-						}
-						else if (minY > centerY) //golpea de abajo
-						{
-							ball.dir.x *= -1;
-
-						}
 
 						obstacles[i][j].isActive = false;
+
+						//Actualizo score y activeObstacles
+						activeObstacles--;
+						playerScore += 100;
 					}
 				}
 			}

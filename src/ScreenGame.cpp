@@ -11,11 +11,14 @@
 
 #include <sl.h>
 
+#include <iostream>
+
+
 bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, Ball& ball, float leftLimit, float rightLimit);
 
 bool GameIsRunning(int scorePlayer1, int scorePlayer2, int endScore);
 
-void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int screenWidth)
+void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int screenWidth, bool& isGameOver, int& activeObstacles)
 {
 	InitializePlayer(player, screenWidth);
 
@@ -25,6 +28,10 @@ void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int
 	InitializeBall(ball, ballPosition);
 
 	//InitializeObstacles(obstacles);
+
+	isGameOver = false;
+
+	activeObstacles = ROWS * COLUMNS;
 
 	InitializeObstacles(obstacles, screenWidth);
 }
@@ -115,16 +122,17 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawText("'P' para volver al menu", screenWidht / 2 - OFFSET_BACK_TEXT_X, screenHeight - OFFSET_BACK_TEXT_Y, BACK_TEXT_SIZE, GOLD);*/
 }
 
-void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode)
+void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles)
 {
 	if (!isGameOver)
 	{
 		//Chequeo de Input
 		PlayerInput(player, ball, 0, screenWidth, deltaTime);
 
-		//Actualización
-		CheckCollision(ball, player.hitbox, obstacles, screenHeight, 0, screenWidth);
+		//Actualizacion
+		CheckCollision(ball, player.hitbox, obstacles, activeObstacles, player.score, screenHeight, 0, screenWidth);
 
+		//Chequeo si se perdio una vida
 		WasALifeLost(player, ball, 0);
 
 		////limite izquiedo y derecho los chequeo en caso de que la pelota llegue sumo puntos y la vuelvo a setear
@@ -152,6 +160,20 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 		if (player.life <= 0)
 		{
 			isGameOver = true;
+		}
+
+		if (activeObstacles <= 0)
+		{
+			if (currentMode == GameMode::Unlimited)
+			{
+				//Actualizar mapa
+				InitializeObstacles(obstacles, screenWidth);
+				activeObstacles = ROWS * COLUMNS;
+
+				Vector2 ballPosition = player.hitbox.center;
+				ballPosition.y += (player.hitbox.height * 2);
+				InitializeBall(ball, ballPosition);
+			}
 		}
 	}
 

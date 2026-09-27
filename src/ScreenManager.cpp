@@ -16,14 +16,14 @@
 #include <cstdlib>
 
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS]);
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD);
 
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode);
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode, int& activeObstacles);
 
 void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS]);
 
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS])
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD)
 {
 	slWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mine-Smash", false);
 
@@ -99,7 +99,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	SetTextPos(gameModeButton.text, gameModeButton.hitbox.x + OFFSET_TEXT_MODE_BUTTON_X, gameModeButton.hitbox.y + OFFSET_TEXT_MODE_BUTTON_Y);
 	*/
 
-	GameInit(player, ball, obstacles, SCREEN_WIDTH);
+	GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
 
 	//InitializePlayer(player, SCREEN_WIDTH);
 
@@ -111,9 +111,11 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	////InitializeObstacles(obstacles);
 
 	//InitializeObstacles(obstacles, SCREEN_WIDTH);
+
+	int fontHud = font;
 }
 
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode, int& activeObstacles)
 {
 	switch (currentOption)
 	{
@@ -121,6 +123,7 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		UpdateMenu(playButton, settingsButton, rulesButton, creditsButton, exitButton);
 		if (playButton.isPressed)
 		{
+			GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
 			currentOption = ScreenOptions::Play;
 			playButton.isPressed = false;
 			/*switch (currentMode)
@@ -158,12 +161,14 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		}
 		break;
 	case ScreenOptions::Play:
-		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode);
+		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode, activeObstacles);
 		if (isGameOver)
 		{
-			currentOption = ScreenOptions::Menu;
-			GameInit(player, ball, obstacles, SCREEN_WIDTH);
-			isGameOver = false;
+			currentOption = ScreenOptions::Menu; //Cambiar a gameOver
+		}
+		else if (activeObstacles <= 0)
+		{
+			currentOption = ScreenOptions::Menu; //Cambiar a win
 		}
 		/*else if (IsKeyDown(KEY_P))
 		{
@@ -296,6 +301,9 @@ void Run()
 	int activeObstacles = ROWS * COLUMNS;
 
 	Ball ball;
+	
+	//Variables para el HUD
+	int fontHUD = 0;
 
 	//Constantes para el HUD
 	//const int HUD_PLAYER_1_X = SCREEN_WIDTH / 4;
@@ -306,7 +314,7 @@ void Run()
 	double deltaTime = 0;
 
 	//Inicialización
-	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles);
+	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, activeObstacles, isGameOver, fontHUD);
 
 	//Loop
 	while (!slShouldClose() && currentOption != ScreenOptions::Exit && !slGetKey(SL_KEY_ESCAPE))
@@ -314,7 +322,7 @@ void Run()
 		deltaTime = slGetDeltaTime();
 
 		//Update (actualizacion)
-		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, deltaTime, isGameOver, currentMode);
+		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, deltaTime, isGameOver, currentMode, activeObstacles);
 
 		//Draw (dibujado)
 		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles);

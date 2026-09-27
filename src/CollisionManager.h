@@ -6,5 +6,6 @@
 
 #include "Ball.h"
 
-void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUMNS], double upperLimit, double leftLimit, double rightLimit);
+void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, int& playerScore, double upperLimit, double leftLimit, double rightLimit);
+
 
