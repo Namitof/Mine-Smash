@@ -1,6 +1,7 @@
 #include "ScreenMenu.h"
 #include "Button.h"
 #include "Vector2.h"
+#include "Sprite.h"
 
 #include <sl.h>
 
@@ -42,57 +43,37 @@ void UpdateMenu(Button& playButton, Button& settingsButton, Button& rulesButton,
 	}
 }
 
-void DrawLogo(int screenWidht, int screenHeight)
+void DrawLogo(int screenWidht, int screenHeight, int fontHUD)
 {
-	/*const int FONT_SIZE = 50;
+	const Color YELLOW_TITLE_A = { 1, 0.796, 0.4 };
+	const Color YELLOW_TITLE_B = { 0.878, 0.596, 0.0627 };
 
-	const float RECTANGLE_LOGO_HEIGHT = 120.0f;
-	const float RECTANGLE_LOGO_WIDTH = 10.0f;
+	Text titleA;
+	titleA.font = fontHUD;
+	titleA.fontSize = 80;
+	titleA.tint = YELLOW_TITLE_A;
+	titleA.position.x = screenWidht / 2;
+	titleA.position.y = ((screenHeight / 4) * 3) + 70;
+	titleA.text = "MINE";
 
-	const int OFFSET_TEXT_ONE_X = 65;
+	Text titleB;
+	titleB.font = fontHUD;
+	titleB.fontSize = 80;
+	titleB.tint = YELLOW_TITLE_B;
+	titleB.position.x = screenWidht / 2;
+	titleB.position.y = ((screenHeight / 4) * 3) - 10;
+	titleB.text = "SMASH";
 
-	const int OFFSET_TEXT_TWO_X = 28;
-	const int OFFSET_TEXT_TWO_Y = 38;
-
-	const int OFFSET_TEXT_ONE_THREE_X = 65;
-	const int OFFSET_TEXT_ONE_THREE_Y = 75;
-
-	Text namePartA;
-	namePartA.color = BLUE;
-	namePartA.text = "NAMI";
-	namePartA.size = FONT_SIZE;
-	Text namePartB;
-	namePartB.color = RAYWHITE;
-	namePartB.text = " - ";
-	namePartB.size = FONT_SIZE;
-	Text namePartC;
-	namePartC.color = RED;
-	namePartC.text = "PONG";
-	namePartC.size = FONT_SIZE;
-
-	Rectangle leftRectangle;
-	leftRectangle.width = RECTANGLE_LOGO_WIDTH;
-	leftRectangle.height = RECTANGLE_LOGO_HEIGHT;
-	leftRectangle.x = static_cast<float>(screenWidht / 8) * 3;
-	leftRectangle.y = static_cast<float>(screenHeight / 8);
-
-	Rectangle rightRectangle;
-	rightRectangle.width = RECTANGLE_LOGO_WIDTH;
-	rightRectangle.height = RECTANGLE_LOGO_HEIGHT;
-	rightRectangle.x = static_cast<float>(screenWidht / 8) * 5 - rightRectangle.width;
-	rightRectangle.y = static_cast<float>(screenHeight / 8);
-
-	DrawText(namePartA.text.c_str(), (screenWidht / 2) - OFFSET_TEXT_ONE_X, (screenHeight / 8), namePartA.size, namePartA.color);
-	DrawText(namePartB.text.c_str(), (screenWidht / 2) - OFFSET_TEXT_TWO_X, (screenHeight / 8) + OFFSET_TEXT_TWO_Y, namePartB.size, namePartB.color);
-	DrawText(namePartC.text.c_str(), (screenWidht / 2) - OFFSET_TEXT_ONE_THREE_X, (screenHeight / 8) + OFFSET_TEXT_ONE_THREE_Y, namePartC.size, namePartC.color);
-
-	DrawRectangleRec(leftRectangle, BLUE);
-	DrawRectangleRec(rightRectangle, RED);*/
+	DrawText(titleA, SL_ALIGN_CENTER);
+	DrawText(titleB, SL_ALIGN_CENTER);
 }
 
-void DrawMenu(Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, int screenWidht, int screenHeight)
+void DrawMenu(Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
 {
-	//DrawLogo(screenWidht, screenHeight);
+	DrawSprite(background);
+
+	DrawLogo(screenWidht, screenHeight, fontHUD);
+
 	DrawButton(playButton);
 
 	DrawButton(settingsButton);

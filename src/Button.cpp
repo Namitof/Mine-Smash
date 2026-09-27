@@ -1,10 +1,11 @@
 #include "Button.h"
 #include "Color.h"
 #include "Text.h"
+#include "Sprite.h"
 
 #include <sl.h>
 
-void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text text, Vector2 position)
+void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text text, Vector2 position, Sprite defaultSprite, Sprite selectSprite)
 {
 	currentButton.isPressed = false;
 	currentButton.isMouseOnButton = false;
@@ -21,6 +22,10 @@ void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rec
 
 	currentButton.hitbox.minPosition.x = currentButton.hitbox.center.x - (currentButton.hitbox.width / 2);
 	currentButton.hitbox.minPosition.y = currentButton.hitbox.center.y - (currentButton.hitbox.height / 2);
+
+	currentButton.defaultSprite = defaultSprite;
+	currentButton.currentSprite = defaultSprite;
+	currentButton.selectSprite = selectSprite;
 }
 
 void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
@@ -34,18 +39,24 @@ void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
 	{
 		currentButton.isMouseOnButton = true;
 		currentButton.currentColor = currentButton.selectColor;
+		currentButton.currentSprite = currentButton.selectSprite;
 	}
 	else
 	{
 		currentButton.isMouseOnButton = false;
 		currentButton.currentColor = currentButton.defaultColor;
+		currentButton.currentSprite = currentButton.defaultSprite;
+
 	}
 }
 
 void DrawButton(Button currentButton)
 {
+	//Hitbox
 	slSetForeColor(currentButton.currentColor.red, currentButton.currentColor.green, currentButton.currentColor.blue, 1.0);
 	slRectangleFill(currentButton.hitbox.center.x, currentButton.hitbox.center.y, currentButton.hitbox.width, currentButton.hitbox.height);
+
+	DrawSprite(currentButton.currentSprite);
 	slSetForeColor(currentButton.text.tint.red, currentButton.text.tint.green, currentButton.text.tint.blue, 1.0);
 	DrawText(currentButton.text, SL_ALIGN_CENTER);
 }

@@ -1,6 +1,8 @@
 #include "Text.h"
 #include <sl.h>
 
+#include <string>
+
 void TextInit(Text& currentText, int font, double fontSize, std::string text, Vector2 position, Color tint)
 {
 	currentText.font = font;
@@ -18,6 +20,7 @@ void SetTextPos(Text& currentText, double textPosX, double textPosY)
 
 void DrawText(Text& currentText, int textAlign)
 {
+	slSetForeColor(currentText.tint.red, currentText.tint.green, currentText.tint.blue, 1.0);
 	slSetFont(currentText.font, currentText.fontSize);
 	slSetTextAlign(textAlign);
 	slText(currentText.position.x, currentText.position.y, (currentText.text).c_str());

@@ -192,31 +192,58 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 						double centerX = obstacles[i][j].hitbox.center.x;
 						double centerY = obstacles[i][j].hitbox.center.y;
 
-						ApplyNewAngle(ball, obstacles[i][j].hitbox, obstacles[i][j].hitbox.minPosition.x);
+						/*ApplyNewAngle(ball, obstacles[i][j].hitbox, obstacles[i][j].hitbox.minPosition.x);
 						ball.dir.x = cos(ball.angle);
-						ball.dir.y = sin(ball.angle);
+						ball.dir.y = sin(ball.angle);*/
 
 						if (maxX < centerX) //golpea de izquierda
 						{
 							diffX = obstacles[i][j].hitbox.minPosition.x - maxX;
-							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
 						}
 						else if (minX > centerX) //golpea de derecha
 						{
 							diffX = obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width - minX;
-							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
 						}
 
+						if (minY > centerY) //golpea de arriba
+						{
+							diffY = obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - minY;
+						}
+						else if (maxY < centerY) //golpea de abajo
+						{
+							diffY = obstacles[i][j].hitbox.minPosition.y - maxY;
+						}
 
 						double absDiffX = CalculateAbsoluteValue(diffX);
 						double absDiffY = CalculateAbsoluteValue(diffY);
+
+						if (ball.center.x == obstacles[i][j].hitbox.center.x)
+						{
+							ball.dir.y *= -1;
+						}
+						else if (ball.center.y == obstacles[i][j].hitbox.center.y)
+						{
+							ball.dir.x *= -1;
+						}
+						else if (absDiffX < absDiffY)
+						{
+							ball.dir.x *= -1;
+						}
+						else if (absDiffX > absDiffY)
+						{
+							ball.dir.y *= -1;
+						}
+						else if (absDiffX == absDiffY)
+						{
+							ball.dir.x *= -1;
+							ball.dir.y *= -1;
+						}
+
 						SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
 
-
-						ball.dir.y *= -1;
-						ball.dir.x *= -1;
-
-
+						/*ball.dir.y *= -1;
+						ball.dir.x *= -1;*/
+					
 						obstacles[i][j].isActive = false;
 
 						//Actualizo score y activeObstacles

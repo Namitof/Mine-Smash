@@ -184,11 +184,14 @@ xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     <ClCompile Include="..\src\Obstacle.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\ScreenCredits.cpp" />
+    <ClCompile Include="..\src\ScreenEndGame.cpp" />
     <ClCompile Include="..\src\ScreenGame.cpp" />
     <ClCompile Include="..\src\ScreenManager.cpp" />
     <ClCompile Include="..\src\ScreenMenu.cpp" />
+    <ClCompile Include="..\src\ScreenPause.cpp" />
     <ClCompile Include="..\src\ScreenRules.cpp" />
     <ClCompile Include="..\src\ScreenSettings.cpp" />
+    <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +204,11 @@ xcopy "$(SolutionDir)res" "$(OutDir)res" /E /Y</Command>
     <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\Rectangle.h" />
     <ClInclude Include="..\src\ScreenCredits.h" />
+    <ClInclude Include="..\src\ScreenEndGame.h" />
     <ClInclude Include="..\src\ScreenGame.h" />
     <ClInclude Include="..\src\ScreenManager.h" />
     <ClInclude Include="..\src\ScreenMenu.h" />
+    <ClInclude Include="..\src\ScreenPause.h" />
     <ClInclude Include="..\src\ScreenRules.h" />
     <ClInclude Include="..\src\ScreenSettings.h" />
     <ClInclude Include="..\src\Sprite.h" />

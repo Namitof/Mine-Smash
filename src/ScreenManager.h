@@ -13,7 +13,7 @@ enum class ScreenOptions
 	Credits,
 	Exit,
 	Pause,
-	Win
+	EndGame // Victoria o derrota
 };
 
 void Run();

@@ -5,14 +5,16 @@
 #include "Ball.h"
 
 #include "Vector2.h"
+#include "Text.h"
+#include "Color.h"
+#include "Sprite.h"
 
 #include "Input.h"
 #include "CollisionManager.h"
 
 #include <sl.h>
 
-#include <iostream>
-
+#include <string>
 
 bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, Ball& ball, float leftLimit, float rightLimit);
 
@@ -99,13 +101,16 @@ void DrawPlayerWin(Player player, int screenWidth, int screenHeight)
 
 }
 
-void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, float hudPlayer1X, float hudPlayer1Y, float hudPlayer2X, float hudPlayer2Y, int screenWidht, float screenHeight)
+void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, float hudPlayer1X, float hudPlayer1Y, float hudPlayer2X, float hudPlayer2Y, int screenWidht, float screenHeight, int fontHUD, Sprite background)
 {
 	const int HUD_TEXT_SCORE_SIZE = 50;
 	const int BACK_TEXT_SIZE = 25;
 
 	const int OFFSET_BACK_TEXT_X = 135;
 	const int OFFSET_BACK_TEXT_Y = 30;
+
+	//Dibujar fondo
+	DrawSprite(background);
 
 	//Dibujar players
 	DrawPlayer(player);
@@ -117,9 +122,24 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawObstacles(obstacles);
 
 	//Dibujar score
-	/*DrawText(TextFormat("%02i", player1.score), hudPlayer1X, hudPlayer1Y, HUD_TEXT_SCORE_SIZE, GOLD);
-	DrawText(TextFormat("%02i", player2.score), hudPlayer2X, hudPlayer2Y, HUD_TEXT_SCORE_SIZE, GOLD);
-	DrawText("'P' para volver al menu", screenWidht / 2 - OFFSET_BACK_TEXT_X, screenHeight - OFFSET_BACK_TEXT_Y, BACK_TEXT_SIZE, GOLD);*/
+	Text lifeHUD;
+	lifeHUD.font = fontHUD;
+	lifeHUD.fontSize = 40;
+	lifeHUD.position.x = 10;
+	lifeHUD.position.y = 10;
+	lifeHUD.tint = WHITE;
+	lifeHUD.text = "Lives: " + std::to_string(player.life);
+
+	Text scoreHUD;
+	scoreHUD.font = fontHUD;
+	scoreHUD.fontSize = 40;
+	scoreHUD.position.x = screenWidht;
+	scoreHUD.position.y = 10;
+	scoreHUD.tint = WHITE;
+	scoreHUD.text = "Score: " + std::to_string(player.score);
+
+	DrawText(lifeHUD, SL_ALIGN_LEFT);
+	DrawText(scoreHUD, SL_ALIGN_RIGHT);
 }
 
 void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles)
@@ -156,8 +176,6 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 		//EvaluateLevel(player2, ball.speed, ball.color);
 
 		UpdateBall(ball, deltaTime, player.hitbox.center);
-
-		std::cout << player.score << std::endl;
 
 		if (player.life <= 0)
 		{

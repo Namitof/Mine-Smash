@@ -75,6 +75,15 @@
     <ClCompile Include="..\src\ScreenGame.cpp">
       <Filter>Archivos de origen\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Sprite.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ScreenEndGame.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ScreenPause.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Vector2.h">
@@ -126,6 +135,12 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ScreenGame.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ScreenEndGame.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ScreenPause.h">
       <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
   </ItemGroup>
