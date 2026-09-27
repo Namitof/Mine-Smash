@@ -157,6 +157,8 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 
 		UpdateBall(ball, deltaTime, player.hitbox.center);
 
+		std::cout << player.score << std::endl;
+
 		if (player.life <= 0)
 		{
 			isGameOver = true;

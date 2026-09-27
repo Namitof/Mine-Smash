@@ -29,7 +29,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	srand(time(NULL));
 
-	int font = slLoadFont("../res/KiwiSoda.ttf");
+	int font = slLoadFont("../res/Font/KiwiSoda.ttf");
 
 	const double fontSize = 32;
 
@@ -305,6 +305,7 @@ void Run()
 	//Variables para el HUD
 	int fontHUD = 0;
 
+
 	//Constantes para el HUD
 	//const int HUD_PLAYER_1_X = SCREEN_WIDTH / 4;
 	//const int HUD_PLAYER_1_Y = 12;
@@ -316,10 +317,14 @@ void Run()
 	//Inicialización
 	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, activeObstacles, isGameOver, fontHUD);
 
+	int background = slLoadTexture("../res/Background/Background.png");
+
 	//Loop
 	while (!slShouldClose() && currentOption != ScreenOptions::Exit && !slGetKey(SL_KEY_ESCAPE))
 	{
 		deltaTime = slGetDeltaTime();
+
+		//slSprite(background,400, 300, 800, 600);
 
 		//Update (actualizacion)
 		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, deltaTime, isGameOver, currentMode, activeObstacles);
