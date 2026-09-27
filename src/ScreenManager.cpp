@@ -99,16 +99,18 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	SetTextPos(gameModeButton.text, gameModeButton.hitbox.x + OFFSET_TEXT_MODE_BUTTON_X, gameModeButton.hitbox.y + OFFSET_TEXT_MODE_BUTTON_Y);
 	*/
 
-	InitializePlayer(player, SCREEN_WIDTH);
+	GameInit(player, ball, obstacles, SCREEN_WIDTH);
 
-	Vector2 ballPosition = player.hitbox.center;
-	ballPosition.y += (player.hitbox.height * 2);
+	//InitializePlayer(player, SCREEN_WIDTH);
 
-	InitializeBall(ball, ballPosition);
+	//Vector2 ballPosition = player.hitbox.center;
+	//ballPosition.y += (player.hitbox.height * 2);
 
-	//InitializeObstacles(obstacles);
+	//InitializeBall(ball, ballPosition);
 
-	InitializeObstacles(obstacles, SCREEN_WIDTH);
+	////InitializeObstacles(obstacles);
+
+	//InitializeObstacles(obstacles, SCREEN_WIDTH);
 }
 
 void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode currentMode)
@@ -160,6 +162,8 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		if (isGameOver)
 		{
 			currentOption = ScreenOptions::Menu;
+			GameInit(player, ball, obstacles, SCREEN_WIDTH);
+			isGameOver = false;
 		}
 		/*else if (IsKeyDown(KEY_P))
 		{

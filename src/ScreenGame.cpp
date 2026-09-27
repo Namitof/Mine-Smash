@@ -15,6 +15,19 @@ bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, 
 
 bool GameIsRunning(int scorePlayer1, int scorePlayer2, int endScore);
 
+void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int screenWidth)
+{
+	InitializePlayer(player, screenWidth);
+
+	Vector2 ballPosition = player.hitbox.center;
+	ballPosition.y += (player.hitbox.height * 2);
+
+	InitializeBall(ball, ballPosition);
+
+	//InitializeObstacles(obstacles);
+
+	InitializeObstacles(obstacles, screenWidth);
+}
 
 bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, Ball& ball, float leftLimit, float rightLimit)
 {
@@ -44,7 +57,7 @@ void WasALifeLost(Player& player, Ball& ball, int downLimit)
 
 		InitializeBall(ball, ballPosition);
 
-		player.life--;
+		UpdatePlayer(player, 0, -1);
 	}
 }
 
