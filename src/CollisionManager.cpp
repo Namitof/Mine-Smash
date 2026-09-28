@@ -192,10 +192,6 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 						double obstacleCenterX = obstacles[i][j].hitbox.center.x;
 						double obstacleCenterY = obstacles[i][j].hitbox.center.y;
 
-						/*ApplyNewAngle(ball, obstacles[i][j].hitbox, obstacles[i][j].hitbox.minPosition.x);
-						ball.dir.x = cos(ball.angle);
-						ball.dir.y = sin(ball.angle);*/
-
 						if (maxX < obstacleCenterX) //golpea de izquierda
 						{
 							diffX = obstacles[i][j].hitbox.minPosition.x - maxX;
@@ -218,13 +214,13 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 						double absDiffY = CalculateAbsoluteValue(diffY);
 						SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
 
-						int margen = 0;
+						int margin = 2;
 
-						if (ball.center.x >= obstacles[i][j].hitbox.minPosition.x + margen && ball.center.x <= obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width - margen)
+						if (ball.center.x >= obstacles[i][j].hitbox.minPosition.x - margin && ball.center.x <= obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width + margin)
 						{
 							ball.dir.y *= -1;
 						}
-						else if (ball.center.y >= obstacles[i][j].hitbox.minPosition.y + margen && ball.center.y <= obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height - margen)
+						else if (ball.center.y >= obstacles[i][j].hitbox.minPosition.y - margin && ball.center.y <= obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height + margin)
 						{
 							ball.dir.x *= -1;
 						}
@@ -233,12 +229,19 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 							ball.dir.x *= -1;
 							ball.dir.y *= -1;
 						}
-					
+
 						obstacles[i][j].isActive = false;
 
 						//Actualizo score y activeObstacles
 						activeObstacles--;
 						playerScore += 100;
+
+						break;
+					}
+
+					if (inCollision)
+					{
+						break;
 					}
 				}
 			}

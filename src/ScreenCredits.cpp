@@ -2,9 +2,11 @@
 #include "Button.h"
 #include "ScreenMenu.h"
 
+#include "Sprite.h"
+
 #include <sl.h>
 
-void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontHUD)
+void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
 {
 	const int FONT_SIZE = 20;
 
@@ -33,27 +35,68 @@ void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontH
 	DrawLogo(screenWidht, screenHeight, fontHUD);
 
 	Text credits;
-	credits.font = 0;
-	credits.fontSize = 0;
-	credits.position.x = 0;
-	credits.position.y = 0;
-	/*credits.tint = 0;
-	credits.text = 0;*/
+	credits.font = fontHUD;
+	credits.fontSize = 20;
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 6 + 20;
+	credits.tint = WHITE;
+	credits.text = "Creado por:";
 
-	//DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(credits, SL_ALIGN_CENTER);
 
-	//DrawText("Creado por:", screenWidht / 2 - OFFSET_TEXT_ONE_X, (screenHeight / 10) * 4, FONT_SIZE, BLUE);
-	//DrawText("Suarez Nahuel", screenWidht / 2 - OFFSET_TEXT_TWO_X, (screenHeight / 10) * 4 + OFFSET_TEXT_TWO_Y, FONT_SIZE, WHITE);
 
-	//DrawText("Profesores:", screenWidht / 2 - OFFSET_TEXT_THREE_X, (screenHeight / 10) * 5, FONT_SIZE, BLUE);
-	//DrawText("Stefano Juan Cvitanich", screenWidht / 2 - OFFSET_TEXT_FOUR_X, (screenHeight / 10) * 5 + OFFSET_TEXT_FOUR_Y, FONT_SIZE, WHITE);
-	//DrawText("Sergio Baretto", screenWidht / 2 - OFFSET_TEXT_FIVE_X, (screenHeight / 10) * 5 + OFFSET_TEXT_FIVE_Y, FONT_SIZE, WHITE);
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 6 + 0;
+	credits.tint = WHITE;
+	credits.text = "Suarez Nahuel";
 
-	//DrawText("Agradecimientos especiales:", screenWidht / 2 - OFFSET_TEXT_SIX_X, (screenHeight / 10) * 6 + OFFSET_TEXT_SIX_Y, FONT_SIZE, RED);
-	//DrawText("Lucio Stefano Piccioni", screenWidht / 2 - OFFSET_TEXT_SEVEN_X, (screenHeight / 10) * 6 + OFFSET_TEXT_SEVEN_Y, FONT_SIZE, WHITE);
-	//DrawText("Sofia Belen Alvarez Franze", screenWidht / 2 - OFFSET_TEXT_EIGHT_X, (screenHeight / 10) * 6 + OFFSET_TEXT_EIGHT_Y, FONT_SIZE, WHITE);
+	DrawText(credits, SL_ALIGN_CENTER);
 
-	//DrawButton(backButton);
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 5 + 40;
+	credits.tint = WHITE;
+	credits.text = "Profesores:";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 5 + 20;
+	credits.tint = WHITE;
+	credits.text = "Stefano Juan Cvitanich";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 5 + 0;
+	credits.tint = WHITE;
+	credits.text = "Sergio Baretto";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 4 + 40;
+	credits.tint = WHITE;
+	credits.text = "Agradecimientos especiales:";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 4 + 20;
+	credits.tint = WHITE;
+	credits.text = "Lucio Stefano Piccioni";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = (screenHeight / 10) * 4 + 0;
+	credits.tint = WHITE;
+	credits.text = "Sofia Belen Alvarez Franze";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	DrawButton(backButton);
 }
 
 void UpdateCredits(Button& backButton)
