@@ -26,4 +26,6 @@ void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rec
 
 void IsMouseOnButton(Button& currentButton, Vector2 mousePosition);
 
+void DrawHitboxButton(Button currentButton);
+
 void DrawButton(Button currentButton);

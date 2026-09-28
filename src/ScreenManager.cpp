@@ -334,7 +334,7 @@ void Run()
 
 	//Variables para el gameplay
 	bool isGameOver = false;
-	GameMode currentMode = GameMode::Normal;
+	GameMode currentMode = GameMode::Unlimited;
 
 	//Variables para sonido
 	bool musicOn = true;
