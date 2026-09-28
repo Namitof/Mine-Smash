@@ -3,6 +3,7 @@
 #include "ScreenMenu.h"
 
 #include "Sprite.h"
+#include "Vector2.h"
 
 #include <sl.h>
 
@@ -112,5 +113,9 @@ void UpdateCredits(Button& backButton)
 	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && backButton.isMouseOnButton)
 	{
 		backButton.isPressed = true;
+	}
+	else
+	{
+		backButton.isPressed = false;
 	}
 }

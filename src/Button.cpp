@@ -8,6 +8,7 @@
 void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text text, Vector2 position, Sprite defaultSprite, Sprite selectSprite)
 {
 	currentButton.isPressed = false;
+	currentButton.wasPressed = false;
 	currentButton.isMouseOnButton = false;
 	currentButton.currentColor = buttonColor;
 	currentButton.defaultColor = buttonColor;

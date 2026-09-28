@@ -11,6 +11,7 @@ const double BUTTON_HEIGHT = 60;
 struct Button
 {
 	bool isPressed;
+	bool wasPressed;
 	bool isMouseOnButton;
 	Color currentColor;
 	Color defaultColor;

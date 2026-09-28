@@ -25,21 +25,45 @@ void UpdateMenu(Button& playButton, Button& settingsButton, Button& rulesButton,
 	{
 		playButton.isPressed = true;
 	}
-	else if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && creditsButton.isMouseOnButton)
+	else
+	{
+		playButton.isPressed = false;
+	}
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && creditsButton.isMouseOnButton)
 	{
 		creditsButton.isPressed = true;
 	}
-	else if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && exitButton.isMouseOnButton)
+	else
+	{
+		creditsButton.isPressed = false;
+	}
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && exitButton.isMouseOnButton)
 	{
 		exitButton.isPressed = true;
 	}
-	else if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && rulesButton.isMouseOnButton)
+	else
+	{
+		exitButton.isPressed = false;
+	}
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && rulesButton.isMouseOnButton)
 	{
 		rulesButton.isPressed = true;
 	}
-	else if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && settingsButton.isMouseOnButton)
+	else
+	{
+		rulesButton.isPressed = false;
+	}
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && settingsButton.isMouseOnButton)
 	{
 		settingsButton.isPressed = true;
+	}
+	else
+	{
+		settingsButton.isPressed = false;
 	}
 }
 
