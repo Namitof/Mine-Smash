@@ -32,6 +32,8 @@ void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontH
 	const int OFFSET_TEXT_EIGHT_X = 140;
 	const int OFFSET_TEXT_EIGHT_Y = 66;
 
+	DrawSprite(background);
+
 	DrawLogo(screenWidht, screenHeight, fontHUD);
 
 	Text credits;

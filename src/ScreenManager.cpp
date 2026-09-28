@@ -12,6 +12,7 @@
 
 #include "ScreenMenu.h"
 #include "ScreenGame.h"
+#include "ScreenCredits.h"
 
 #include <sl.h>
 #include <ctime>
@@ -127,9 +128,19 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	selectButton.position.y = buttonPosition.y;
 	ButtonInit(exitButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
 
+	//Init a backButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (3 * buttonHitbox.height) - (3 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Back", textPosition, WHITE);
+	defaultButton.position.x = buttonPosition.x;
+	defaultButton.position.y = buttonPosition.y;
+	selectButton.position.x = buttonPosition.x;
+	selectButton.position.y = buttonPosition.y;
+	ButtonInit(backButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
 
 	/*
-	ButtonInit(backButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, TEXT_SIZE, RAYWHITE, "Volver", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 4 - OFFSET_BACK_BUTTON_Y);
 	SetTextPos(backButton.text, backButton.hitbox.x + OFFSET_TEXT_BACK_BUTTON_X, backButton.hitbox.y + OFFSET_TEXT_BACK_BUTTON_Y);
 
 	ButtonInit(gameModeButton, BUTTON_WIDTH, BUTTON_HEIGHT, BLUE, DARKBLUE, CREDITS_TEXT_SIZE, RAYWHITE, " P1 vs P2 ", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + BUTTON_HEIGHT * 2 - OFFSET_MODE_BUTTON_Y);
@@ -150,7 +161,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	//InitializeObstacles(obstacles, SCREEN_WIDTH);
 
-	int fontHud = font;
+	fontHUD = font;
 
 	background.texture2d = slLoadTexture("../res/Background/Background.png");
 	background.position.x = SCREEN_WIDTH / 2;
@@ -303,7 +314,7 @@ void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton,
 		//DrawRules(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 		break;
 	case ScreenOptions::Credits:
-		//DrawCredits(backButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		DrawCredits(backButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
 		break;
 	case ScreenOptions::Pause:
 

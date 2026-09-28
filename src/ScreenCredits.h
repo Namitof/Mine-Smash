@@ -1,6 +1,6 @@
 #pragma once
 #include "Button.h"
 
-void DrawCredits(Button playButton, int screenWidht, int screenHeight);
+void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontHUD, Sprite background);
 
 void UpdateCredits(Button& backButton);
