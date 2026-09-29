@@ -248,33 +248,4 @@ void CheckCollision(Ball& ball, Rectangle player, Obstacle obstacles[ROWS][COLUM
 		}
 	}
 
-	
-
-	//inCollision = CollisionAABB(player1, minX, minY, maxX, maxY);
-	//if (inCollision)
-	//{
-	//	float centerX = player1.x + (player1.width / 2);
-	//	float centerY = player1.y + (player1.height / 2);
-
-	//	ApplyNewAngle(ball, player1, centerY);
-	//	ball.dirX = cos(ball.angle);
-	//	ball.dirY = sin(ball.angle);
-
-	//	if (maxY < centerY) //golpea de arriba
-	//	{
-	//		diffX = player1.x + player1.width - minX;
-	//		diffY = player1.y - maxY;
-	//	}
-	//	else if (minY > centerY) //golpea de abajo
-	//	{
-	//		diffX = player1.x + player1.width - minX;
-	//		diffY = player1.y + player1.height - minY;
-	//	}
-
-	//	float absDiffX = CalculateAbsoluteValue(diffX);
-	//	float absDiffY = CalculateAbsoluteValue(diffY);
-	//	SeparateBall(ball, absDiffX, absDiffY, diffX, diffY);
-
-	//}
-
 }

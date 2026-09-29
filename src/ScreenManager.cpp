@@ -15,20 +15,22 @@
 #include "ScreenCredits.h"
 #include "ScreenRules.h"
 #include "ScreenSettings.h"
+#include "ScreenPause.h"
 
 #include <sl.h>
 #include <ctime>
 #include <cstdlib>
 
+void UpdateButtons(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton);
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD, Sprite& background);
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD, Sprite& background, bool& musicOn, bool& soundsOn);
 
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode& currentMode, int& activeObstacles);
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode& currentMode, int& activeObstacles, bool& inGame);
 
-void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS], int fontHUD, Sprite background);
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Button soundsButton, Button musicButton, Button continueButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS], int fontHUD, Sprite background);
 
 
-void UpdateButtons(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton)
+void UpdateButtons(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton)
 {
 	playButton.wasPressed = playButton.isPressed;
 	settingsButton.wasPressed = settingsButton.isPressed;
@@ -37,9 +39,12 @@ void UpdateButtons(Button& playButton, Button& settingsButton, Button& rulesButt
 	exitButton.wasPressed = exitButton.isPressed;
 	backButton.wasPressed = backButton.isPressed;
 	gameModeButton.wasPressed = gameModeButton.isPressed;
+	soundsButton.wasPressed = soundsButton.isPressed;
+	musicButton.wasPressed = musicButton.isPressed;
+	continueButton.wasPressed = continueButton.isPressed;
 }
 
-void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD, Sprite& background)
+void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], int& activeObstacles, bool& isGameOver, int& fontHUD, Sprite& background, bool& musicOn, bool& soundsOn)
 {
 	slWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mine-Smash", false);
 
@@ -166,6 +171,47 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	selectButton.position.y = buttonPosition.y;
 	ButtonInit(gameModeButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
 
+
+	//Init a soundsButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (0 * buttonHitbox.height) - (0 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Sounds: On", textPosition, WHITE);
+	defaultButton.position.x = buttonPosition.x;
+	defaultButton.position.y = buttonPosition.y;
+	selectButton.position.x = buttonPosition.x;
+	selectButton.position.y = buttonPosition.y;
+	ButtonInit(soundsButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
+
+	soundsOn = true;
+
+	//Init a musicButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (1 * buttonHitbox.height) - (1 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Music: On", textPosition, WHITE);
+	defaultButton.position.x = buttonPosition.x;
+	defaultButton.position.y = buttonPosition.y;
+	selectButton.position.x = buttonPosition.x;
+	selectButton.position.y = buttonPosition.y;
+	ButtonInit(musicButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
+
+	musicOn = true;
+
+	//Init a continueButton
+	buttonPosition.x = SCREEN_WIDTH / 2;
+	buttonPosition.y = (SCREEN_HEIGHT / 2) - (2 * buttonHitbox.height) - (2 * SPACE_BETWEEN_BUTTONS);
+	textPosition.x = buttonPosition.x;
+	textPosition.y = buttonPosition.y - (fontSize * NORMALIZE);
+	TextInit(currentText, font, fontSize, "Continue", textPosition, WHITE);
+	defaultButton.position.x = buttonPosition.x;
+	defaultButton.position.y = buttonPosition.y;
+	selectButton.position.x = buttonPosition.x;
+	selectButton.position.y = buttonPosition.y;
+	ButtonInit(continueButton, ORANGE, BROWN, buttonHitbox, currentText, buttonPosition, defaultButton, selectButton);
+
 	/*
 	SetTextPos(backButton.text, backButton.hitbox.x + OFFSET_TEXT_BACK_BUTTON_X, backButton.hitbox.y + OFFSET_TEXT_BACK_BUTTON_Y);
 
@@ -197,9 +243,9 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	background.tint = WHITE;
 }
 
-void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode& currentMode, int& activeObstacles)
+void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton, Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton, Button& continueButton, Player& player, Ball& ball, Obstacle obstacles[ROWS][COLUMNS], double deltaTime, bool& isGameOver, GameMode& currentMode, int& activeObstacles, bool& inGame)
 {
-	UpdateButtons(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton);
+	UpdateButtons(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, soundsButton, musicButton, continueButton);
 
 	switch (currentOption)
 	{
@@ -210,6 +256,7 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 			GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
 			currentOption = ScreenOptions::Play;
 			playButton.isPressed = false;
+			inGame = true;
 			/*switch (currentMode)
 			{
 			case GameMode::Normal:
@@ -245,7 +292,7 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		}
 		break;
 	case ScreenOptions::Play:
-		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode, activeObstacles);
+		PlayGame(player, obstacles, ball, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, isGameOver, currentMode, activeObstacles, inGame);
 		if (isGameOver)
 		{
 			currentOption = ScreenOptions::Menu; //Cambiar a gameOver
@@ -254,13 +301,15 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		{
 			currentOption = ScreenOptions::Menu; //Cambiar a win
 		}
-		/*else if (IsKeyDown(KEY_P))
+		
+		if (!inGame)
 		{
-			currentOption = ScreenOptions::Menu;
-		}*/
+			currentOption = ScreenOptions::Pause;
+		}
+
 		break;
 	case ScreenOptions::Settings:
-		UpdateSettings(backButton, gameModeButton);
+		UpdateSettings(backButton, gameModeButton, soundsButton, musicButton);
 		if (!backButton.isPressed && backButton.wasPressed)
 		{
 			currentOption = ScreenOptions::Menu;
@@ -301,9 +350,18 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		}
 		break;
 	case ScreenOptions::Pause:
-		/*
-		
-		*/
+		UpdatePause(backButton, continueButton);
+		if (!backButton.isPressed && backButton.wasPressed)
+		{
+			currentOption = ScreenOptions::Menu;
+			backButton.isPressed = false;
+		}
+		else if (!continueButton.isPressed && continueButton.wasPressed)
+		{
+			currentOption = ScreenOptions::Play;
+			continueButton.isPressed = false;
+			inGame = true;
+		}
 		break;
 	case ScreenOptions::EndGame:
 		/*if (IsKeyDown(KEY_ENTER))
@@ -317,7 +375,7 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 	}
 }
 
-void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS], int fontHUD, Sprite background)
+void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton, Button rulesButton, Button creditsButton, Button exitButton, Button backButton, Button gameModeButton, Button soundsButton, Button musicButton, Button continueButton, Player player, Ball ball, Obstacle obstacles[ROWS][COLUMNS], int fontHUD, Sprite background)
 {
 
 	float hudPlayer1X = 0;
@@ -335,7 +393,7 @@ void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton,
 		DrawGameFrame(player, obstacles, ball, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
 		break;
 	case ScreenOptions::Settings:
-		DrawSettings(backButton, gameModeButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
+		DrawSettings(backButton, gameModeButton, soundsButton, musicButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
 		break;
 	case ScreenOptions::Rules:
 		DrawRules(backButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
@@ -344,7 +402,8 @@ void Draw(ScreenOptions currentOption, Button playButton, Button settingsButton,
 		DrawCredits(backButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
 		break;
 	case ScreenOptions::Pause:
-
+		DrawGameFrame(player, obstacles, ball, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD, background);
+		DrawPause(backButton, continueButton, SCREEN_WIDTH, SCREEN_HEIGHT, fontHUD);
 		break;
 	case ScreenOptions::EndGame:
 		//DrawGameFrame(player1, player2, ball, mid, hudPlayer1X, hudPlayer1Y, hudPlayer2X, hudPlayer2Y, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -367,12 +426,19 @@ void Run()
 	Button backButton;
 	Button gameModeButton;
 
+	Button soundsButton;
+	Button musicButton;
+
+	Button continueButton;
+
 	//Variable de escena
 	ScreenOptions currentOption = ScreenOptions::Menu;
 
 	//Variables para el gameplay
 	bool isGameOver = false;
 	GameMode currentMode = GameMode::Normal;
+
+	bool inGame = false;
 
 	//Variables para sonido
 	bool musicOn = true;
@@ -399,7 +465,7 @@ void Run()
 	double deltaTime = 0;
 
 	//Inicialización
-	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, activeObstacles, isGameOver, fontHUD, background);
+	Init(playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, soundsButton, musicButton, continueButton, player, ball, obstacles, activeObstacles, isGameOver, fontHUD, background, musicOn, soundsOn);
 
 	//Loop
 	while (!slShouldClose() && currentOption != ScreenOptions::Exit && !slGetKey(SL_KEY_ESCAPE))
@@ -407,10 +473,10 @@ void Run()
 		deltaTime = slGetDeltaTime();
 
 		//Update (actualizacion)
-		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, deltaTime, isGameOver, currentMode, activeObstacles);
+		Update(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, soundsButton, musicButton, continueButton, player, ball, obstacles, deltaTime, isGameOver, currentMode, activeObstacles, inGame);
 
 		//Draw (dibujado)
-		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, player, ball, obstacles, fontHUD, background);
+		Draw(currentOption, playButton, settingsButton, rulesButton, creditsButton, exitButton, backButton, gameModeButton, soundsButton, musicButton, continueButton, player, ball, obstacles, fontHUD, background);
 	}
 
 	//Cierre

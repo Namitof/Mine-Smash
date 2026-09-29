@@ -4,10 +4,11 @@
 
 #include "Ball.h"
 
+#include "ScreenManager.h"
 
 #include <sl.h>
 
-void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit, double deltaTime)
+void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit, double deltaTime, bool& inGame)
 {
 	if (slGetKey('A') || slGetKey('a'))
 	{
@@ -48,10 +49,8 @@ void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit
 		ShootBall(ball);
 	}
 	
-	/*
-	if (p)
+	if (slGetKey('P') || slGetKey('p'))
 	{
-
+		inGame = false;
 	}
-	*/
 }

@@ -142,12 +142,12 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawText(scoreHUD, SL_ALIGN_RIGHT);
 }
 
-void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles)
+void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles, bool& inGame)
 {
 	if (!isGameOver)
 	{
 		//Chequeo de Input
-		PlayerInput(player, ball, 0, screenWidth, deltaTime);
+		PlayerInput(player, ball, 0, screenWidth, deltaTime, inGame);
 
 		//Actualizacion
 		CheckCollision(ball, player.hitbox, obstacles, activeObstacles, player.score, screenHeight, 0, screenWidth);
