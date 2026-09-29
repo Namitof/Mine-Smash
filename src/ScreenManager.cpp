@@ -53,6 +53,11 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	int font = slLoadFont("../res/Font/KiwiSoda.ttf");
 
+	int obstacle1 = slLoadTexture("../res/Obstacles/rockRed.png");
+	int obstacle2 = slLoadTexture("../res/Obstacles/rockViolet.png");
+	int obstacle3 = slLoadTexture("../res/Obstacles/rockWhite.png");
+	int obstacle4 = slLoadTexture("../res/Obstacles/rockYellow.png");
+
 	const double fontSize = 32;
 
 	const double NORMALIZE = 0.2;
@@ -223,6 +228,8 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
 
+	SetObstacleTexture(obstacles, obstacle1, obstacle2, obstacle3, obstacle4);
+
 	//InitializePlayer(player, SCREEN_WIDTH);
 
 	//Vector2 ballPosition = player.hitbox.center;
@@ -373,22 +380,6 @@ void Update(ScreenOptions& currentOption, Button& playButton, Button& settingsBu
 		else if (!continueButton.isPressed && continueButton.wasPressed)
 		{
 			GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
-
-			/*int newScore = 0;
-			int newLife = 3;
-			if (player.life > 0)
-			{
-				newScore = player.score;
-				newLife = player.life;
-			}
-
-			
-
-			if (newScore > 0)
-			{
-				UpdatePlayer(player, newScore, (INITIAL_LIFE - (INITIAL_LIFE - newLife)));
-			}*/
-
 			currentOption = ScreenOptions::Play;
 			continueButton.isPressed = false;
 			inGame = true;
