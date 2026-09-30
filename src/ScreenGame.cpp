@@ -16,9 +16,7 @@
 
 #include <string>
 
-bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, Ball& ball, float leftLimit, float rightLimit);
-
-bool GameIsRunning(int scorePlayer1, int scorePlayer2, int endScore);
+void WasALifeLost(Player& player, Ball& ball, int downLimit);
 
 void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int screenWidth, bool& isGameOver, int& activeObstacles)
 {
@@ -38,25 +36,6 @@ void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int
 	InitializeObstacles(obstacles, screenWidth);
 }
 
-bool WasPointScored(int& scorePlayer1, int& scorePlayer2, int& xpP1, int& xpP2, Ball& ball, float leftLimit, float rightLimit)
-{
-	if (ball.center.x <= leftLimit)
-	{
-		scorePlayer2++;
-		xpP2++;
-		return true;
-	}
-	else if (ball.center.x >= rightLimit)
-	{
-		scorePlayer1++;
-		xpP1++;
-		return true;
-	}
-
-	return false;
-
-}
-
 void WasALifeLost(Player& player, Ball& ball, int downLimit)
 {
 	if (ball.center.y <= downLimit)
@@ -70,37 +49,6 @@ void WasALifeLost(Player& player, Ball& ball, int downLimit)
 	}
 }
 
-//bool isWin()
-//{
-//
-//}
-//
-//bool isDefeat()
-//{
-//
-//}
-
-bool GameIsRunning(int scorePlayer1, int scorePlayer2, int endScore)
-{
-	return ((scorePlayer1 >= endScore) || (scorePlayer2 >= endScore));
-}
-
-void DrawPlayerWin(Player player, int screenWidth, int screenHeight)
-{
-	const int FONT_WIN_SIZE = 20;
-
-	/*if (player1.score >= endScore)
-	{
-		DrawText("Victoria para jugador 1", (screenWidth / 8), (screenHeight / 2) - FONT_WIN_SIZE, FONT_WIN_SIZE, player1.color);
-	}
-	else if (player2.score >= endScore)
-	{
-		DrawText("Victoria para jugador 2", (screenWidth / 8), (screenHeight / 2) - FONT_WIN_SIZE, FONT_WIN_SIZE, player2.color);
-	}
-	DrawText("ENTER para volver al menu", (screenWidth / 8), (screenHeight / 2) + FONT_WIN_SIZE / 2, FONT_WIN_SIZE, ORANGE);*/
-
-}
-
 void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, float hudPlayer1X, float hudPlayer1Y, float hudPlayer2X, float hudPlayer2Y, int screenWidht, float screenHeight, int fontHUD, Sprite background)
 {
 	const int HUD_TEXT_SCORE_SIZE = 50;
@@ -112,14 +60,14 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	//Dibujar fondo
 	DrawSprite(background);
 
+	//Dibujar bloques
+	DrawObstacles(obstacles);
+
 	//Dibujar players
 	DrawPlayer(player);
 
 	//Dibujar pelota
 	DrawBall(ball);
-
-	//Dibujar bloques
-	DrawObstacles(obstacles);
 
 	//Dibujar score
 	Text lifeHUD;
@@ -149,31 +97,13 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 		//Chequeo de Input
 		PlayerInput(player, ball, 0, screenWidth, deltaTime, inGame);
 
+		UpdateSpritePosition(player);
+
 		//Actualizacion
 		CheckCollision(ball, player.hitbox, obstacles, activeObstacles, player.score, screenHeight, 0, screenWidth);
 
 		//Chequeo si se perdio una vida
 		WasALifeLost(player, ball, 0);
-
-		////limite izquiedo y derecho los chequeo en caso de que la pelota llegue sumo puntos y la vuelvo a setear
-		/*if (WasPointScored(player1.score, player2.score, player1.xp, player2.xp, ball, 0, screenWidth))
-		{
-			SetBall(ball, screenWidth, screenHeight);
-			InitializePlayer(player1);
-			if (currentMode != GameMode::P1vsCPU)
-			{
-				InitializePlayer(player2);
-			}
-			else
-			{
-				SetPlayerCpu(player2);
-			}
-			player1.color = BLUE;
-			player2.color = RED;
-		}*/
-
-		//EvaluateLevel(player1, ball.speed, ball.color);
-		//EvaluateLevel(player2, ball.speed, ball.color);
 
 		UpdateBall(ball, deltaTime, player.hitbox.center);
 

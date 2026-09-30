@@ -113,6 +113,7 @@ void ApplyNewAngle(Ball& ball, Rectangle currentPlayer, double leftBorderX)
 	}
 
 	double newAngle = MAX_ANGLE - (normalizedImpact * (MAX_ANGLE - MIN_ANGLE));
+	//Tambien podria hacer: MIN_ANGLE + ( (MAX_ANGLE - MIN_ANGLE) * (1 - normalizedImpact)
 
 	//Convertir a radianes
 	newAngle *= (PI / 180);

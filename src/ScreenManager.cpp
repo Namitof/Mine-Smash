@@ -58,6 +58,10 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	int obstacle3 = slLoadTexture("../res/Obstacles/rockWhite.png");
 	int obstacle4 = slLoadTexture("../res/Obstacles/rockYellow.png");
 
+	int playerTexture = slLoadTexture("../res/Player/minecart.png");
+
+	int ballTexture = slLoadTexture("../res/Ball/ball.png");
+
 	const double fontSize = 32;
 
 	const double NORMALIZE = 0.2;
@@ -229,6 +233,10 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	GameInit(player, ball, obstacles, SCREEN_WIDTH, isGameOver, activeObstacles);
 
 	SetObstacleTexture(obstacles, obstacle1, obstacle2, obstacle3, obstacle4);
+
+	SetBallTexture(ball, ballTexture);
+
+	SetPlayerTexture(player, playerTexture);
 
 	//InitializePlayer(player, SCREEN_WIDTH);
 

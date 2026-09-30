@@ -7,6 +7,16 @@
 
 #include <cmath>
 
+void SetBallTexture(Ball& ball, int balltexture)
+{
+	ball.texture.texture2d = balltexture;
+	ball.texture.tint = WHITE;
+	ball.texture.position.x = ball.center.x;
+	ball.texture.position.y = ball.center.y;
+	ball.texture.size.x = WIDTH_SPRITE_BALL; 
+	ball.texture.size.y = HEIGTH_SPRITE_BALL;
+}
+
 void ShootBall(Ball& ball)
 {
 	ball.isCatch = false;
@@ -65,7 +75,14 @@ void BallRight(Ball& ball, double speed, double deltaTime)
 
 void DrawBall(Ball ball)
 {
+	slSetForeColor(ball.texture.tint.red, ball.texture.tint.green, ball.texture.tint.blue, 1.0);
+	slSprite(ball.texture.texture2d, ball.center.x, ball.center.y, ball.texture.size.x, ball.texture.size.y);
+
 	//Dibujar pelota
+#ifdef _DEBUG
 	slSetForeColor(ball.tint.red, ball.tint.green, ball.tint.blue, 1.0);
 	slCircleFill(ball.center.x, ball.center.y, ball.radius, ball.numVertices);
+#endif // _DEBUG
+
+	
 }

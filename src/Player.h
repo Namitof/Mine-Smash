@@ -1,6 +1,7 @@
 #pragma once
 #include "Rectangle.h"
 #include "Color.h"
+#include "Sprite.h"
 
 const double DEFAULT_SPEED_PLAYER = 500.0f;
 
@@ -16,7 +17,12 @@ struct Player
 	int score;
 	int life;
 	Color tint;
+	Sprite texture;
 };
+
+void SetPlayerTexture(Player& player, int playerTexture);
+
+void UpdateSpritePosition(Player& player);
 
 void UpdatePlayerPosition(Rectangle& player);
 
