@@ -78,16 +78,16 @@
     <ClInclude Include="src\ScreenSettings.h">
       <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sprite.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Text.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\Vector2.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Input.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sprite.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,13 +134,13 @@
     <ClCompile Include="src\ScreenSettings.cpp">
       <Filter>Archivos de origen\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="src\Sprite.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\Text.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Input.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
   </ItemGroup>
