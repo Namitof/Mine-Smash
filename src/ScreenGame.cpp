@@ -49,6 +49,45 @@ void WasALifeLost(Player& player, Ball& ball, int downLimit)
 	}
 }
 
+void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles, bool& inGame)
+{
+	if (!isGameOver)
+	{
+		//Chequeo de Input
+		PlayerInput(player, ball, 0, screenWidth, deltaTime, inGame);
+
+		UpdateSpritePosition(player);
+
+		//Actualizacion
+		CheckCollision(ball, player.hitbox, obstacles, activeObstacles, player.score, screenHeight, 0, screenWidth);
+
+		//Chequeo si se perdio una vida
+		WasALifeLost(player, ball, 0);
+
+		UpdateBall(ball, deltaTime, player.hitbox.center);
+
+		if (player.life <= 0)
+		{
+			isGameOver = true;
+		}
+
+		if (activeObstacles <= 0)
+		{
+			if (currentMode == GameMode::Unlimited)
+			{
+				//Actualizar mapa
+				InitializeObstacles(obstacles, screenWidth);
+				activeObstacles = ROWS * COLUMNS;
+
+				Vector2 ballPosition = player.hitbox.center;
+				ballPosition.y += (player.hitbox.height * 2);
+				InitializeBall(ball, ballPosition);
+			}
+		}
+	}
+
+}
+
 void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, float hudPlayer1X, float hudPlayer1Y, float hudPlayer2X, float hudPlayer2Y, int screenWidht, float screenHeight, int fontHUD, Sprite background)
 {
 	const int HUD_TEXT_SCORE_SIZE = 50;
@@ -90,42 +129,5 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	DrawText(scoreHUD, SL_ALIGN_RIGHT);
 }
 
-void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, double deltaTime, double screenWidth, double screenHeight, bool& isGameOver, GameMode currentMode, int& activeObstacles, bool& inGame)
-{
-	if (!isGameOver)
-	{
-		//Chequeo de Input
-		PlayerInput(player, ball, 0, screenWidth, deltaTime, inGame);
 
-		UpdateSpritePosition(player);
-
-		//Actualizacion
-		CheckCollision(ball, player.hitbox, obstacles, activeObstacles, player.score, screenHeight, 0, screenWidth);
-
-		//Chequeo si se perdio una vida
-		WasALifeLost(player, ball, 0);
-
-		UpdateBall(ball, deltaTime, player.hitbox.center);
-
-		if (player.life <= 0)
-		{
-			isGameOver = true;
-		}
-
-		if (activeObstacles <= 0)
-		{
-			if (currentMode == GameMode::Unlimited)
-			{
-				//Actualizar mapa
-				InitializeObstacles(obstacles, screenWidth);
-				activeObstacles = ROWS * COLUMNS;
-
-				Vector2 ballPosition = player.hitbox.center;
-				ballPosition.y += (player.hitbox.height * 2);
-				InitializeBall(ball, ballPosition);
-			}
-		}
-	}
-
-}
 

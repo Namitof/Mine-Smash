@@ -7,6 +7,35 @@
 
 #include <sl.h>
 
+void UpdatePause(Button& backButton, Button& continueButton)
+{
+	Vector2 mousePosition;
+	mousePosition.x = slGetMouseX();
+	mousePosition.y = slGetMouseY();
+
+	IsMouseOnButton(backButton, mousePosition);
+
+	IsMouseOnButton(continueButton, mousePosition);
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && backButton.isMouseOnButton)
+	{
+		backButton.isPressed = true;
+	}
+	else
+	{
+		backButton.isPressed = false;
+	}
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && continueButton.isMouseOnButton)
+	{
+		continueButton.isPressed = true;
+	}
+	else
+	{
+		continueButton.isPressed = false;
+	}
+}
+
 void DrawPause(Button backButton, Button continueButton,  int screenWidht, int screenHeight, int fontHUD)
 {
 	const int FONT_SIZE = 20;
@@ -51,31 +80,3 @@ void DrawPause(Button backButton, Button continueButton,  int screenWidht, int s
 	DrawButton(continueButton);
 }
 
-void UpdatePause(Button& backButton, Button& continueButton)
-{
-	Vector2 mousePosition;
-	mousePosition.x = slGetMouseX();
-	mousePosition.y = slGetMouseY();
-
-	IsMouseOnButton(backButton, mousePosition);
-
-	IsMouseOnButton(continueButton, mousePosition);
-
-	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && backButton.isMouseOnButton)
-	{
-		backButton.isPressed = true;
-	}
-	else
-	{
-		backButton.isPressed = false;
-	}
-
-	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && continueButton.isMouseOnButton)
-	{
-		continueButton.isPressed = true;
-	}
-	else
-	{
-		continueButton.isPressed = false;
-	}
-}

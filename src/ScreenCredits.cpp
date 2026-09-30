@@ -7,6 +7,24 @@
 
 #include <sl.h>
 
+void UpdateCredits(Button& backButton)
+{
+	Vector2 mousePosition;
+	mousePosition.x = slGetMouseX();
+	mousePosition.y = slGetMouseY();
+
+	IsMouseOnButton(backButton, mousePosition);
+
+	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && backButton.isMouseOnButton)
+	{
+		backButton.isPressed = true;
+	}
+	else
+	{
+		backButton.isPressed = false;
+	}
+}
+
 void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
 {
 	const int FONT_SIZE = 20;
@@ -102,20 +120,3 @@ void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontH
 	DrawButton(backButton);
 }
 
-void UpdateCredits(Button& backButton)
-{
-	Vector2 mousePosition;
-	mousePosition.x = slGetMouseX();
-	mousePosition.y = slGetMouseY();
-
-	IsMouseOnButton(backButton, mousePosition);
-
-	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && backButton.isMouseOnButton)
-	{
-		backButton.isPressed = true;
-	}
-	else
-	{
-		backButton.isPressed = false;
-	}
-}
