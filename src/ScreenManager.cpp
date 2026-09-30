@@ -51,16 +51,16 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	srand(time(NULL));
 
-	int font = slLoadFont("../res/Font/KiwiSoda.ttf");
+	int font = slLoadFont("res/Font/KiwiSoda.ttf");
 
-	int obstacle1 = slLoadTexture("../res/Obstacles/rockRed.png");
-	int obstacle2 = slLoadTexture("../res/Obstacles/rockViolet.png");
-	int obstacle3 = slLoadTexture("../res/Obstacles/rockWhite.png");
-	int obstacle4 = slLoadTexture("../res/Obstacles/rockYellow.png");
+	int obstacle1 = slLoadTexture("res/Obstacles/rockRed.png");
+	int obstacle2 = slLoadTexture("res/Obstacles/rockViolet.png");
+	int obstacle3 = slLoadTexture("res/Obstacles/rockWhite.png");
+	int obstacle4 = slLoadTexture("res/Obstacles/rockYellow.png");
 
-	int playerTexture = slLoadTexture("../res/Player/minecart.png");
+	int playerTexture = slLoadTexture("res/Player/minecart.png");
 
-	int ballTexture = slLoadTexture("../res/Ball/ball.png");
+	int ballTexture = slLoadTexture("res/Ball/ball.png");
 
 	const double fontSize = 32;
 
@@ -69,7 +69,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	const double SPACE_BETWEEN_BUTTONS = 10;
 
 	Sprite defaultButton;
-	defaultButton.texture2d = slLoadTexture("../res/Buttons/Dbutton.png");
+	defaultButton.texture2d = slLoadTexture("res/Buttons/Dbutton.png");
 	defaultButton.size.x = BUTTON_WIDTH;
 	defaultButton.size.y = BUTTON_HEIGHT;
 	defaultButton.position.x = 0;
@@ -77,7 +77,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 	defaultButton.tint = WHITE;
 
 	Sprite selectButton;
-	selectButton.texture2d = slLoadTexture("../res/Buttons/Sbutton.png");
+	selectButton.texture2d = slLoadTexture("res/Buttons/Sbutton.png");
 	selectButton.size.x = BUTTON_WIDTH;
 	selectButton.size.y = BUTTON_HEIGHT;
 	selectButton.position.x = 0;
@@ -251,7 +251,7 @@ void Init(Button& playButton, Button& settingsButton, Button& rulesButton, Butto
 
 	fontHUD = font;
 
-	background.texture2d = slLoadTexture("../res/Background/Background.png");
+	background.texture2d = slLoadTexture("res/Background/Background.png");
 	background.position.x = SCREEN_WIDTH / 2;
 	background.position.y = SCREEN_HEIGHT / 2;
 	background.size.x = SCREEN_WIDTH;
