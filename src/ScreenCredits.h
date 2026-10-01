@@ -1,6 +1,6 @@
 #pragma once
 #include "Button.h"
-
+#include "Sprite.h"
 
 void UpdateCredits(Button& backButton);
 

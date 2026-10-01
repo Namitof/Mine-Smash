@@ -1,10 +1,7 @@
 #include "ScreenCredits.h"
 #include "Button.h"
-#include "ScreenMenu.h"
-
 #include "Sprite.h"
 #include "Vector2.h"
-
 #include <sl.h>
 
 void UpdateCredits(Button& backButton)
@@ -27,93 +24,80 @@ void UpdateCredits(Button& backButton)
 
 void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
 {
-	const int FONT_SIZE = 20;
+	const int FONT_SIZE = 30;
+	const int TITLE_FONT_SIZE = 40;
 
-	const int OFFSET_TEXT_ONE_X = 55;
+	const int OFFSET_Y = 30;
 
-	const int OFFSET_TEXT_TWO_X = 70;
-	const int OFFSET_TEXT_TWO_Y = 22;
-
-	const int OFFSET_TEXT_THREE_X = 55;
-
-	const int OFFSET_TEXT_FOUR_X = 115;
-	const int OFFSET_TEXT_FOUR_Y = 22;
-
-	const int OFFSET_TEXT_FIVE_X = 70;
-	const int OFFSET_TEXT_FIVE_Y = 40;
-
-	const int OFFSET_TEXT_SIX_X = 140;
-	const int OFFSET_TEXT_SIX_Y = 22;
-
-	const int OFFSET_TEXT_SEVEN_X = 112;
-	const int OFFSET_TEXT_SEVEN_Y = 44;
-
-	const int OFFSET_TEXT_EIGHT_X = 140;
-	const int OFFSET_TEXT_EIGHT_Y = 66;
+	const int PARTS_OF_THE_HEIGHT_OF_THE_SCREEN = (screenHeight / 10);
 
 	DrawSprite(background);
 
-	DrawLogo(screenWidht, screenHeight, fontHUD);
-
 	Text credits;
 	credits.font = fontHUD;
-	credits.fontSize = 20;
+	credits.fontSize = TITLE_FONT_SIZE;
 	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 6 + 20;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 9 - OFFSET_Y;
 	credits.tint = WHITE;
-	credits.text = "Creado por:";
+	credits.text = "Game developed by: Suarez Nahuel";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
+	credits.fontSize = FONT_SIZE;
 
 	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 6 + 0;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 7 + (OFFSET_Y * 1);
 	credits.tint = WHITE;
-	credits.text = "Suarez Nahuel";
-
-	DrawText(credits, SL_ALIGN_CENTER);
-
-	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 40;
-	credits.tint = WHITE;
-	credits.text = "Profesores:";
-
-	DrawText(credits, SL_ALIGN_CENTER);
-
-
-	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 20;
-	credits.tint = WHITE;
-	credits.text = "Stefano Juan Cvitanich";
+	credits.text = "Resources:";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
 	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 0;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 7;
 	credits.tint = WHITE;
-	credits.text = "Sergio Baretto";
+	credits.text = "\"Top - Down Crystals Pixel Art\" by craftpix.net";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
 	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 40;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 7 - OFFSET_Y;
 	credits.tint = WHITE;
-	credits.text = "Agradecimientos especiales:";
-
-	DrawText(credits, SL_ALIGN_CENTER);
-
-
-	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 20;
-	credits.tint = WHITE;
-	credits.text = "Lucio Stefano Piccioni";
+	credits.text = "https://craftpix.net/freebies/top-down-crystals-pixel-art/";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
 	credits.position.x = screenWidht / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 0;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 6 - (OFFSET_Y * 1);
 	credits.tint = WHITE;
-	credits.text = "Sofia Belen Alvarez Franze";
+	credits.text = "Font: \"Kiwi Soda\"by jeti";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 6 - (OFFSET_Y * 2);
+	credits.tint = WHITE;
+	credits.text = "https://fontenddev.com/fonts/kiwi-soda/";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 2);
+	credits.tint = WHITE;
+	credits.text = "Tools used in development: Aseprite, Photopea, BeepBox";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 3);
+	credits.tint = WHITE;
+	credits.text = "Game developed in Visual Studio 2026";
+
+	DrawText(credits, SL_ALIGN_CENTER);
+
+	credits.position.x = screenWidht / 2;
+	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 4);
+	credits.tint = WHITE;
+	credits.text = "using C++ and the SIGIL library";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
