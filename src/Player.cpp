@@ -1,7 +1,5 @@
 #include "Player.h"
-
 #include "Rectangle.h"
-
 #include <sl.h>
 
 void SetPlayerTexture(Player& player, int playerTexture)
@@ -9,39 +7,34 @@ void SetPlayerTexture(Player& player, int playerTexture)
 	player.texture.texture2d = playerTexture;
 	player.texture.tint = WHITE;
 	player.texture.position.x = player.hitbox.center.x;
-	player.texture.position.y = player.hitbox.center.y - 30;
-	player.texture.size.x = 130;
-	player.texture.size.y = 130;
+	player.texture.position.y = player.hitbox.center.y - OFFSET_PLAYER_TEXTURE_Y;
+	player.texture.size.x = PLAYER_TEXTURE_WIDTH;
+	player.texture.size.y = PLAYER_TEXTURE_HEIGHT;
 }
 
 void UpdatePlayerPosition(Rectangle& player)
 {
 	player.minPosition.x = player.center.x - (player.width / 2);
 	player.minPosition.y = player.center.y - (player.height / 2);
-
-	
 }
 
 void UpdateSpritePosition(Player& player)
 {
 	player.texture.position.x = player.hitbox.center.x;
-	player.texture.position.y = player.hitbox.center.y - 30;
+	player.texture.position.y = player.hitbox.center.y - OFFSET_PLAYER_TEXTURE_Y;
 }
 
 void PlayerLeft(Rectangle& player, double speed, int leftLimit, double deltaTime)
 {
 	if ((player.center.x - (player.width/2)) > leftLimit)
 	{
-		//player.minPosition.x -= speed * deltaTime;
 		player.center.x -= speed * deltaTime;
 	}
 	else
 	{
-		//player.minPosition.x = leftLimit;
 		player.center.x = leftLimit + (player.width/2);
 	}
 	UpdatePlayerPosition(player);
-
 }
 
 void PlayerRight(Rectangle& player, double speed, int rightLimit, double deltaTime)
@@ -59,8 +52,9 @@ void PlayerRight(Rectangle& player, double speed, int rightLimit, double deltaTi
 
 void InitializePlayer(Player& currentPlayer, int screenWidth)
 {
+
 	currentPlayer.hitbox.center.x = screenWidth / 2;
-	currentPlayer.hitbox.center.y = 100;
+	currentPlayer.hitbox.center.y = POS_Y;
 
 	currentPlayer.hitbox.width = PLAYER_WIDTH;
 	currentPlayer.hitbox.height = PLAYER_HEIGHT;
@@ -95,43 +89,3 @@ void DrawPlayer(Player currentPlayer)
 #endif
 	
 }
-
-//void EvaluateLevel(Player& currentPlayer, float& ballSpeed, Color& ballColor)
-//{
-//	int randomEvent = 0;
-//
-//	Powers currentPower = Powers::None;
-//
-//	if (currentPlayer.xp >= REQUIRED_XP)
-//	{
-//		randomEvent = GetRandomValue(static_cast<int>(Powers::SpeedBoost), static_cast<int>(Powers::IncreaseSize));
-//
-//		currentPower = static_cast<Powers>(randomEvent);
-//
-//		switch (currentPower)
-//		{
-//		case Powers::SpeedBoost: //Player mas rapido
-//			currentPlayer.color = GOLD;
-//			if (currentPlayer.speed < DEFAULT_SPEED_PLAYER * 4)
-//			{
-//				currentPlayer.speed += 100.0f;
-//			}
-//			break;
-//		case Powers::FastBall: //Pelota mas rapida
-//			ballColor = RED;
-//			ballSpeed += 150.0f;
-//			break;
-//		case Powers::IncreaseSize: //Player mas alto
-//			currentPlayer.color = PURPLE;
-//			if (currentPlayer.hitbox.height < 200.0f)
-//			{
-//				currentPlayer.hitbox.height += 50.0f;
-//			}
-//			break;
-//		default:
-//			break;
-//		}
-//		currentPlayer.level += 1;
-//		currentPlayer.xp = 0;
-//	}
-//}

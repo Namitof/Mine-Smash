@@ -2,7 +2,7 @@
 #include "Color.h"
 #include "Text.h"
 #include "Sprite.h"
-
+#include "Vector2.h"
 #include <sl.h>
 
 void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text text, Vector2 position, Sprite defaultSprite, Sprite selectSprite)
@@ -53,12 +53,13 @@ void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
 
 void DrawButton(Button currentButton)
 {
-#ifdef _DEBUG
 	//Hitbox
+#ifdef _DEBUG
 	slSetForeColor(currentButton.currentColor.red, currentButton.currentColor.green, currentButton.currentColor.blue, 1.0);
 	slRectangleFill(currentButton.hitbox.center.x, currentButton.hitbox.center.y, currentButton.hitbox.width, currentButton.hitbox.height);
 #endif
 
+	//Boton
 	DrawSprite(currentButton.currentSprite);
 	slSetForeColor(currentButton.text.tint.red, currentButton.text.tint.green, currentButton.text.tint.blue, 1.0);
 	DrawText(currentButton.text, SL_ALIGN_CENTER);

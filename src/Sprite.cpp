@@ -1,5 +1,6 @@
 #include "Sprite.h"
-
+#include "Vector2.h"
+#include "Color.h"
 #include <sl.h>
 
 void SpriteIniti(Sprite& currentSprite, int texture, Vector2 size, Vector2 position, Color tint)

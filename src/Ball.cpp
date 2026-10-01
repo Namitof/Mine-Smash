@@ -1,10 +1,7 @@
 #include "Ball.h"
-
 #include "Vector2.h"
 #include "Color.h"
-
 #include <sl.h>
-
 #include <cmath>
 
 void SetBallTexture(Ball& ball, int balltexture)
@@ -50,17 +47,6 @@ void UpdateBall(Ball& ball, float deltaTime, Vector2 position)
 {
 	ball.center.x += (ball.speed * ball.dir.x) * deltaTime;
 	ball.center.y += (ball.speed * ball.dir.y) * deltaTime;
-
-	/*if (ball.isCatch)
-	{
-		ball.center.x += position.x;
-		ball.center.y += position.y;
-	}
-	else
-	{
-		ball.center.x += (ball.speed * ball.dir.x) * deltaTime;
-		ball.center.y += (ball.speed * ball.dir.y) * deltaTime;
-	}*/
 }
 
 void BallLeft(Ball& ball, double speed, double deltaTime)
@@ -75,14 +61,13 @@ void BallRight(Ball& ball, double speed, double deltaTime)
 
 void DrawBall(Ball ball)
 {
+	//Dibujar pelota
 	slSetForeColor(ball.texture.tint.red, ball.texture.tint.green, ball.texture.tint.blue, 1.0);
 	slSprite(ball.texture.texture2d, ball.center.x, ball.center.y, ball.texture.size.x, ball.texture.size.y);
 
-	//Dibujar pelota
+	//Dibujar Hitbox
 #ifdef _DEBUG
 	slSetForeColor(ball.tint.red, ball.tint.green, ball.tint.blue, 1.0);
 	slCircleFill(ball.center.x, ball.center.y, ball.radius, ball.numVertices);
-#endif // _DEBUG
-
-	
+#endif 
 }

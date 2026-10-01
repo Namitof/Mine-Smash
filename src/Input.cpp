@@ -1,11 +1,6 @@
 #include "Input.h"
-
 #include "Player.h"
-
 #include "Ball.h"
-
-#include "ScreenManager.h"
-
 #include <sl.h>
 
 void PlayerInput(Player& player, Ball& ball, double leftLimit, double rightLimit, double deltaTime, bool& inGame)

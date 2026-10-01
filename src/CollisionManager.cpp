@@ -51,7 +51,7 @@ bool CollisionAABB(Rectangle rectA, double minX, double minY, double maxX, doubl
 	/*
 		Chequeo de colisiones de rectangulo a rectangulo
 		Datos -> Punto de origen (x, y) de rectangulo A
-				 {En este caso es el vertice izquierdo}
+				 {En este caso es el vertice inferior izquierdo}
 			  -> Altura (height) de rectangulo A
 			  -> Ancho (width) de rectangulo A
 			  -> Valor minimo en x del rectangulo B

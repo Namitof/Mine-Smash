@@ -2,7 +2,6 @@
 #include "Button.h"
 #include "Vector2.h"
 #include "Sprite.h"
-
 #include <sl.h>
 
 void UpdateMenu(Button& playButton, Button& settingsButton, Button& rulesButton, Button& creditsButton, Button& exitButton)
@@ -72,20 +71,25 @@ void DrawLogo(int screenWidht, int screenHeight, int fontHUD)
 	const Color YELLOW_TITLE_A = { 1, 0.796, 0.4 };
 	const Color YELLOW_TITLE_B = { 0.878, 0.596, 0.0627 };
 
+	const int TITLE_SIZE = 80;
+
+	const int TITLE_A_OFFSET_Y = 70;
+	const int TITLE_B_OFFSET_Y = 10;
+
 	Text titleA;
 	titleA.font = fontHUD;
-	titleA.fontSize = 80;
+	titleA.fontSize = TITLE_SIZE;
 	titleA.tint = YELLOW_TITLE_A;
 	titleA.position.x = screenWidht / 2;
-	titleA.position.y = ((screenHeight / 4) * 3) + 70;
+	titleA.position.y = ((screenHeight / 4) * 3) + TITLE_A_OFFSET_Y;
 	titleA.text = "MINE";
 
 	Text titleB;
 	titleB.font = fontHUD;
-	titleB.fontSize = 80;
+	titleB.fontSize = TITLE_SIZE;
 	titleB.tint = YELLOW_TITLE_B;
 	titleB.position.x = screenWidht / 2;
-	titleB.position.y = ((screenHeight / 4) * 3) - 10;
+	titleB.position.y = ((screenHeight / 4) * 3) - TITLE_B_OFFSET_Y;
 	titleB.text = "SMASH";
 
 	DrawText(titleA, SL_ALIGN_CENTER);
@@ -107,5 +111,4 @@ void DrawMenu(Button playButton, Button settingsButton, Button rulesButton, Butt
 	DrawButton(creditsButton);
 
 	DrawButton(exitButton);
-
 }

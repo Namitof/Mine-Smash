@@ -10,6 +10,13 @@ const int PLAYER_HEIGHT = 10;
 
 const int INITIAL_LIFE = 3;
 
+const int PLAYER_TEXTURE_WIDTH = 130;
+const int PLAYER_TEXTURE_HEIGHT = 130;
+
+const int OFFSET_PLAYER_TEXTURE_Y = 30;
+
+const int POS_Y = 100;
+
 struct Player
 {
 	Rectangle hitbox;
@@ -22,9 +29,9 @@ struct Player
 
 void SetPlayerTexture(Player& player, int playerTexture);
 
-void UpdateSpritePosition(Player& player);
-
 void UpdatePlayerPosition(Rectangle& player);
+
+void UpdateSpritePosition(Player& player);
 
 void PlayerLeft(Rectangle& player, double speed, int leftLimit, double deltaTime);
 
@@ -33,6 +40,5 @@ void PlayerRight(Rectangle& player, double speed, int rightLimit, double deltaTi
 void InitializePlayer(Player& currentPlayer, int screenWidth);
 
 void UpdatePlayer(Player& currentPlayer, int addScore, int addLife);
-
 
 void DrawPlayer(Player currentPlayer);

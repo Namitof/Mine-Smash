@@ -1,19 +1,14 @@
 #include "ScreenGame.h"
-
 #include "Player.h"
 #include "Obstacle.h"
 #include "Ball.h"
-
 #include "Vector2.h"
 #include "Text.h"
 #include "Color.h"
 #include "Sprite.h"
-
 #include "Input.h"
 #include "CollisionManager.h"
-
 #include <sl.h>
-
 #include <string>
 
 void WasALifeLost(Player& player, Ball& ball, int downLimit);
@@ -26,8 +21,6 @@ void GameInit(Player& player, Ball&	ball, Obstacle obstacles[ROWS][COLUMNS], int
 	ballPosition.y += (player.hitbox.height * 2);
 
 	InitializeBall(ball, ballPosition);
-
-	//InitializeObstacles(obstacles);
 
 	isGameOver = false;
 
@@ -90,11 +83,12 @@ void PlayGame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, dou
 
 void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball, float hudPlayer1X, float hudPlayer1Y, float hudPlayer2X, float hudPlayer2Y, int screenWidht, float screenHeight, int fontHUD, Sprite background)
 {
-	const int HUD_TEXT_SCORE_SIZE = 50;
-	const int BACK_TEXT_SIZE = 25;
+	const int HUD_TEXT_SIZE = 40;
 
-	const int OFFSET_BACK_TEXT_X = 135;
-	const int OFFSET_BACK_TEXT_Y = 30;
+	const int HUD_POS_Y = 15;
+
+	const int LIVE_POS_X = 10;
+	const int SCORE_POS_X = SCREEN_WIDTH - 10;
 
 	//Dibujar fondo
 	DrawSprite(background);
@@ -111,17 +105,17 @@ void DrawGameFrame(Player& player, Obstacle obstacles[ROWS][COLUMNS], Ball& ball
 	//Dibujar score
 	Text lifeHUD;
 	lifeHUD.font = fontHUD;
-	lifeHUD.fontSize = 40;
-	lifeHUD.position.x = 10;
-	lifeHUD.position.y = 10;
+	lifeHUD.fontSize = HUD_TEXT_SIZE;
+	lifeHUD.position.x = LIVE_POS_X;
+	lifeHUD.position.y = HUD_POS_Y;
 	lifeHUD.tint = WHITE;
 	lifeHUD.text = "Lives: " + std::to_string(player.life);
 
 	Text scoreHUD;
 	scoreHUD.font = fontHUD;
-	scoreHUD.fontSize = 40;
-	scoreHUD.position.x = screenWidht;
-	scoreHUD.position.y = 10;
+	scoreHUD.fontSize = HUD_TEXT_SIZE;
+	scoreHUD.position.x = SCORE_POS_X;
+	scoreHUD.position.y = HUD_POS_Y;
 	scoreHUD.tint = WHITE;
 	scoreHUD.text = "Score: " + std::to_string(player.score);
 

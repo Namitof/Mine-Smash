@@ -1,6 +1,5 @@
 #include "Text.h"
 #include <sl.h>
-
 #include <string>
 
 void TextInit(Text& currentText, int font, double fontSize, std::string text, Vector2 position, Color tint)

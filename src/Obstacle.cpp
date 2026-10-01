@@ -1,15 +1,10 @@
 #include "Obstacle.h"
-
 #include "Vector2.h"
-
 #include "Color.h"
-
 #include <sl.h>
 
 void SetObstacleTexture(Obstacle obstacles[ROWS][COLUMNS], int obstacle1, int obstacle2, int obstacle3, int obstacle4)
 {
-	
-	
 	for (int i = 0; i < COLUMNS; i++)
 	{
 		obstacles[0][i].texture.texture2d = obstacle4;
@@ -59,14 +54,6 @@ void SetObstacleTexture(Obstacle obstacles[ROWS][COLUMNS], int obstacle1, int ob
 		obstacles[4][i].texture.position.x = obstacles[4][i].hitbox.center.x;
 		obstacles[4][i].texture.position.y = obstacles[4][i].hitbox.center.y;
 	}
-
-	/*for (int i = 0; i < ROWS; i++)
-	{
-		for (int j = 0; j < COLUMNS; j++)
-		{
-
-		}
-	}*/
 }
 
 void InitializeOneObstacle(Obstacle& currentObstacle, Vector2 position)
@@ -91,7 +78,6 @@ void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS], int screenWidth)
 	const double VERTICAL_SEPARATION = 15;
 
 	double HORIZONTAL_SEPARATION = static_cast<double>((screenWidth - (COLUMNS * OBSTACLE_WIDTH_HITBOX)) / (COLUMNS + 1));
-	//Hacer lo mismo para la separacion vertical IMPORTANTE NO USAR TODO EL SCREEN HEIGHT PORQUE LA ZONA JUGABLE DEBERIA SER MITAD DE PANTALLA O 3 CUARTOS
 
 	Vector2 position;
 	position.x = HORIZONTAL_SEPARATION;
@@ -113,10 +99,12 @@ void InitializeObstacles(Obstacle obstacles[ROWS][COLUMNS], int screenWidth)
 
 void DrawOneObstacle(Obstacle currentObstacle)
 {
+	//Dibujar hitbox
 #ifdef _DEBUG
 	slSetForeColor(currentObstacle.tint.red, currentObstacle.tint.green, currentObstacle.tint.blue, 1.0);
 	slRectangleFill(currentObstacle.hitbox.center.x, currentObstacle.hitbox.center.y, currentObstacle.hitbox.width, currentObstacle.hitbox.height);
 #endif 
+	//Dibujar sprite
 	slSetForeColor(currentObstacle.texture.tint.red, currentObstacle.texture.tint.green, currentObstacle.texture.tint.blue, 1.0);
 	slSprite(currentObstacle.texture.texture2d, currentObstacle.texture.position.x, currentObstacle.texture.position.y, currentObstacle.texture.size.x, currentObstacle.texture.size.y);
 }

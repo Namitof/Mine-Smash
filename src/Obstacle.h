@@ -1,17 +1,17 @@
 #pragma once
 #include "Rectangle.h"
 #include "Color.h"
-
 #include "Sprite.h"
+#include "Vector2.h"
 
-const int ROWS = 5; //6
-const int COLUMNS = 12;  //8
+const int ROWS = 5;
+const int COLUMNS = 12;  
 
-const int OBSTACLE_WIDTH = 80; //80
-const int OBSTACLE_HEIGHT = 80; //80
+const int OBSTACLE_WIDTH = 80; 
+const int OBSTACLE_HEIGHT = 80; 
 
-const int OBSTACLE_WIDTH_HITBOX = 50; //80
-const int OBSTACLE_HEIGHT_HITBOX = 50; //80
+const int OBSTACLE_WIDTH_HITBOX = 50; 
+const int OBSTACLE_HEIGHT_HITBOX = 50; 
 
 struct Obstacle
 {

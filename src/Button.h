@@ -4,6 +4,7 @@
 #include "Color.h"
 #include "Rectangle.h"
 #include "Sprite.h"
+#include "Vector2.h"
 
 const double BUTTON_WIDTH = 200;
 const double BUTTON_HEIGHT = 60;
