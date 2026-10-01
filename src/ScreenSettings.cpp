@@ -1,12 +1,12 @@
 #include "ScreenSettings.h"
-#include "Ball.h"
+//#include "Ball.h"
 
 #include "Button.h"
 #include "Vector2.h"
 
 #include <sl.h>
 
-void UpdateSettings(Button& backButton, Button& gameModeButton, Button& soundsButton, Button& musicButton)
+void UpdateSettings(Button& backButton, Button& gameModeButton)
 {
 	Vector2 mousePosition;
 	mousePosition.x = slGetMouseX();
@@ -33,27 +33,9 @@ void UpdateSettings(Button& backButton, Button& gameModeButton, Button& soundsBu
 	{
 		gameModeButton.isPressed = false;
 	}
-
-	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && soundsButton.isMouseOnButton)
-	{
-		soundsButton.isPressed = true;
-	}
-	else
-	{
-		soundsButton.isPressed = false;
-	}
-
-	if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) && musicButton.isMouseOnButton)
-	{
-		musicButton.isPressed = true;
-	}
-	else
-	{
-		musicButton.isPressed = false;
-	}
 }
 
-void DrawSettings(Button backButton, Button gameModeButton, Button& soundsButton, Button& musicButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
+void DrawSettings(Button backButton, Button gameModeButton, int screenWidht, int screenHeight, int fontHUD, Sprite background)
 {
 	const int FONT_SIZE = 35;
 	const int FONT_SIZE_TITLE = 50;
@@ -152,8 +134,4 @@ void DrawSettings(Button backButton, Button gameModeButton, Button& soundsButton
 	DrawButton(gameModeButton);
 
 	DrawButton(backButton);
-
-	DrawButton(soundsButton);
-
-	DrawButton(musicButton);
 }
