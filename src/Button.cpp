@@ -51,15 +51,14 @@ void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
 	}
 }
 
-void DrawHitboxButton(Button currentButton)
+void DrawButton(Button currentButton)
 {
+#ifdef _DEBUG
 	//Hitbox
 	slSetForeColor(currentButton.currentColor.red, currentButton.currentColor.green, currentButton.currentColor.blue, 1.0);
 	slRectangleFill(currentButton.hitbox.center.x, currentButton.hitbox.center.y, currentButton.hitbox.width, currentButton.hitbox.height);
-}
+#endif
 
-void DrawButton(Button currentButton)
-{
 	DrawSprite(currentButton.currentSprite);
 	slSetForeColor(currentButton.text.tint.red, currentButton.text.tint.green, currentButton.text.tint.blue, 1.0);
 	DrawText(currentButton.text, SL_ALIGN_CENTER);
