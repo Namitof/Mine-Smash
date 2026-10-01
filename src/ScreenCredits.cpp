@@ -83,7 +83,7 @@ void DrawCredits(Button backButton, int screenWidht, int screenHeight, int fontH
 	credits.position.x = screenWidht / 2;
 	credits.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 2);
 	credits.tint = WHITE;
-	credits.text = "Tools used in development: Aseprite, Photopea, BeepBox";
+	credits.text = "Tools: Aseprite, Photopea, RGB Color Picker";
 
 	DrawText(credits, SL_ALIGN_CENTER);
 
