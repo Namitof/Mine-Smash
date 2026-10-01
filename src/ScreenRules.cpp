@@ -1,7 +1,6 @@
 #include "ScreenRules.h"
 #include "Button.h"
 #include "Vector2.h"
-
 #include <sl.h>
 
 void UpdateRules(Button& backButton)
@@ -24,86 +23,105 @@ void UpdateRules(Button& backButton)
 
 void DrawRules(Button backButton, int screenWidth, int screenHeight, int fontHUD, Sprite background)
 {
-	const int FONT_SIZE = 20;
+	const int FONT_SIZE = 30;
 	const int TITLE_FONT_SIZE = 50;
 
-	const int OFFSET_TITLE_X = 80;
+	const int OFFSET_Y = 30;
 
-	const int OFFSET_TEXT_X = 20;
-
+	const int PARTS_OF_THE_HEIGHT_OF_THE_SCREEN = (screenHeight / 10);
 
 	DrawSprite(background);
 
-	Text credits;
-	credits.font = fontHUD;
-	credits.fontSize = 20;
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 6 + 20;
-	credits.tint = WHITE;
-	credits.text = "Creado por:";
+	Text rules;
+	rules.font = fontHUD;
+	rules.fontSize = TITLE_FONT_SIZE;
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 9;
+	rules.tint = ORANGE;
+	rules.text = " Rules ";
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(rules, SL_ALIGN_CENTER);
 
+	rules.fontSize = FONT_SIZE;
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 6 + 0;
-	credits.tint = WHITE;
-	credits.text = "Suarez Nahuel";
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 9 - OFFSET_Y;
+	rules.tint = WHITE;
+	rules.text = "- The player controls a minecart and must destroy ";
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 40;
-	credits.tint = WHITE;
-	credits.text = "Profesores:";
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 9 - (OFFSET_Y * 2);
+	rules.tint = WHITE;
+	rules.text = " minerals by hitting them with the ball. ";
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(rules, SL_ALIGN_CENTER);
 
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 8 - OFFSET_Y;
+	rules.tint = WHITE;
+	rules.text = "- When the ball hits the minecart ";
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 20;
-	credits.tint = WHITE;
-	credits.text = "Stefano Juan Cvitanich";
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 8 - (OFFSET_Y * 2);
+	rules.tint = WHITE;
+	rules.text = " it bounces off in a new direction.";
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 5 + 0;
-	credits.tint = WHITE;
-	credits.text = "Sergio Baretto";
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 7 - OFFSET_Y;
+	rules.tint = WHITE;
+	rules.text = "- The angle of the bounce depends on";
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 40;
-	credits.tint = WHITE;
-	credits.text = "Agradecimientos especiales:";
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 7 - (OFFSET_Y * 2);
+	rules.tint = WHITE;
+	rules.text = " which part of the cart the ball hits. ";
 
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 20;
-	credits.tint = WHITE;
-	credits.text = "Lucio Stefano Piccioni";
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 6 - OFFSET_Y;
+	rules.tint = WHITE;
+	rules.text = "- If the player fails to hit the ball, they lose a life.";
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	credits.position.x = screenWidth / 2;
-	credits.position.y = (screenHeight / 10) * 4 + 0;
-	credits.tint = WHITE;
-	credits.text = "Sofia Belen Alvarez Franze";
+	rules.fontSize = TITLE_FONT_SIZE;
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - OFFSET_Y;
+	rules.tint = ORANGE;
+	rules.text = "Game Modes";
 
-	DrawText(credits, SL_ALIGN_CENTER);
+	DrawText(rules, SL_ALIGN_CENTER);
 
-	/*DrawText("Reglas", screenWidth / 2 - OFFSET_TITLE_X, FONT_SIZE * 3, TITLE_FONT_SIZE, GOLD);
-	DrawText("Cada jugador controla una paleta y debe evitar", OFFSET_TEXT_X, FONT_SIZE * 9, FONT_SIZE, WHITE);
-	DrawText("que la pelota salga por su lado de la pantalla.", OFFSET_TEXT_X, FONT_SIZE * 10, FONT_SIZE, WHITE);
-	DrawText("Cuando la pelota golpea una paleta, rebota en una nueva direccion.", OFFSET_TEXT_X, FONT_SIZE * 12, FONT_SIZE, WHITE);
-	DrawText("El angulo del rebote depende del impacto con la paleta.", OFFSET_TEXT_X, FONT_SIZE * 14, FONT_SIZE, WHITE);
-	DrawText("Si un jugador no logra devolver la pelota, su oponente obtiene un punto.", OFFSET_TEXT_X, FONT_SIZE * 16, FONT_SIZE, WHITE);
-	DrawText("Cada 3 puntos obtenidos por un jugador, se consigue un potenciador.", OFFSET_TEXT_X, FONT_SIZE * 18, FONT_SIZE, WHITE);
-	DrawText("La partida termina cuando uno de los jugadores alcanza 10 puntos", OFFSET_TEXT_X, FONT_SIZE * 20, FONT_SIZE, WHITE);*/
+	rules.fontSize = FONT_SIZE;
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 2);
+	rules.tint = WHITE;
+	rules.text = "- Normal: You win the game by destroying all the blocks.";
+
+	DrawText(rules, SL_ALIGN_CENTER);
+
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 3);
+	rules.tint = WHITE;
+	rules.text = "- Unlimited: The game has no limits once ";
+
+	DrawText(rules, SL_ALIGN_CENTER);
+
+	rules.position.x = screenWidth / 2;
+	rules.position.y = PARTS_OF_THE_HEIGHT_OF_THE_SCREEN * 5 - (OFFSET_Y * 4);
+	rules.tint = WHITE;
+	rules.text = " you destroy all the blocks, they regenerate. ";
+
+	DrawText(rules, SL_ALIGN_CENTER);
 
 	DrawButton(backButton);
 }
